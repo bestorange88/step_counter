@@ -1,0 +1,325 @@
+{extend name="common/layout"}
+{block name="title"}内部转账{/block}
+{block name="style"}
+<style>
+/* 通用样式 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 卡片样式 */
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: .25rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+    padding: 1rem;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .75rem 1.25rem;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    margin: 0;
+}
+
+.card-options {
+    display: flex;
+    align-items: center;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background-color: #f7f7f7;
+    border-top: 1px solid #ddd;
+}
+
+/* 按钮样式 */
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-toggle-form {
+    position: absolute;
+    right: .3rem;
+    top: 0rem;
+    z-index: 1;
+}
+
+/* 表单样式 */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: 700;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.input-group-append {
+    display: flex;
+}
+
+.input-group-text {
+    display: flex;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-left: -1px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 0 .25rem .25rem 0;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+/* 表格样式 */
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.table-vcenter th,
+.table-vcenter td {
+    vertical-align: middle;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* 自定义样式 */
+.card-form.card-collapsed .card-body {
+    display: none;
+}
+
+.card-form.card-collapsed .card-options-collapse i {
+    transform: rotate(180deg);
+}
+
+.selectgroup {
+    display: flex;
+}
+
+.selectgroup-item {
+    margin-right: .5rem;
+}
+
+.selectgroup-input {
+    display: none;
+}
+
+.selectgroup-button {
+    display: inline-block;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+
+.selectgroup-input:checked + .selectgroup-button {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.card-more {
+    cursor: pointer;
+}
+</style>
+{/block}
+{block name="content"}
+<div class="card card-form card-collapsed">
+    <div class="card-header" data-toggle="card-collapse">
+        <div class="card-title f1">提交转账</div>
+        <div class="card-options">
+            <a href="#" class="card-options-collapse mr-2" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">对方账号</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="对方账号" name="target" maxlength="11" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">数量</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="0" name="number" />
+                        <span class="input-group-append" id="basic-addon2">
+                            <span class="input-group-text">{$Think.config.hello.unit}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                    <label class="form-label">安全密码</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" placeholder="******" name="safeword" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex">
+            <div class="small text-muted mt-2">
+                手续费：<span class="charge">0</span>
+            </div>
+            <div class="ml-auto text-right">
+                <button type="submit" class="btn btn-primary btn-submit btn-transfer">立即转账</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="card-header">
+        <div class="card-title f1">历史记录</div>
+        <div class="card-options">
+            <div class="selectgroup selectgroup-pills list-switch">
+                <label class="selectgroup-item mb-0">
+                    <input type="radio" name="option" value="in" class="selectgroup-input" checked="true" />
+                    <span class="selectgroup-button selectgroup-button-sm">转入</span>
+                </label>
+                <label class="selectgroup-item mb-0">
+                    <input type="radio" name="option" value="out" class="selectgroup-input" />
+                    <span class="selectgroup-button selectgroup-button-sm">转出</span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-striped table-vcenter">
+            <thead>
+                <tr>
+                    <th>用户</th>
+                    <th width="20%" class="text-right">数量</th>
+                    <th width="20%" class="text-right pr-4">服务费</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div hidden class="card-footer card-more">
+        <div class="text-muted text-center">点击加载更多</div>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript">
+var charge = JSON.parse('{$charge|raw}');
+</script>
+<script type="text/javascript" src="/static/js/transfer.js?1"></script>
+{/block}

@@ -1,0 +1,141 @@
+{extend name="common/layout"}
+{block name="title"}新闻公告{/block}
+{block name="style"}
+<style>
+/* 重置样式 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* 布局样式 */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.col-md-6, .col-xl-4 {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-xl-4 {
+        width: 33.33%;
+    }
+}
+
+/* 卡片样式 */
+.card.news {
+    display: flex;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card.news:hover {
+    transform: translateY(-5px);
+}
+
+.card.news img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.card.news .d-flex {
+    display: flex;
+    flex: 1;
+}
+
+.card.news .w-25 {
+    flex: 0 0 auto;
+}
+
+.card.news .w-75 {
+    flex: 1;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #202020;
+    margin: 0;
+}
+
+.date {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 10px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.no-articles {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #6c757d;
+    margin-top: 50px;
+}
+</style>
+{/block}
+
+{block name="content"}
+<div class="row">
+    <!-- 调试信息：仅在开发环境启用 -->
+    {if isset($debug) && $debug}
+    <pre>{:print_r($articles)}</pre>
+    {/if}
+
+    <!-- 显示新闻公告 -->
+    {if !empty($articles)}
+    {volist name="articles" id="article"}
+    <div class="col-md-6 col-xl-4">
+        <div class="card news">
+            <a class="d-flex p-3" href="/article/{$article.id}.html">
+                <div class="w-25">
+                    <img src="/upload/{$article.thumbnail}" alt="{$article.title}" />
+                </div>
+                <div class="w-75 pl-3">
+                    <div class="d-flex">
+                        <h3 class="card-title">{$article.title|default='未命名'}</h3>
+                    </div>
+                    <div class="date mt-3 text-muted">{$article.publish_date|date='Y-m-d'}</div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {/volist}
+    {else}
+    <!-- 空数据提示 -->
+    <div class="no-articles">
+        暂无新闻公告，敬请期待！
+    </div>
+    {/if}
+</div>
+{/block}
+
+{block name="script"} {/block}
