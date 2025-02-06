@@ -1,0 +1,329 @@
+{extend name="common/world"}
+{block name="title"}幸运转盘{/block}
+{block name="style"}
+<style>
+	.turnplate {
+		position: relative;
+		padding: 1rem;
+	}
+	.turnplate-pointer {
+		position: absolute;
+		left: 50%;top: 50%;
+		width: 80px; height: 106px;
+		margin: -66.5px 0 0 -40px;
+	}
+</style>
+{/block}
+{block name="container"}
+<div class="wrapper">
+
+	<div class="scratch">
+		{eq name="myChance" value="-1"}
+		<div class="scratch-count p-2 text-white">机会无限，试试运气吧！</div>
+		{else /}
+		<div class="scratch-count p-2 text-white">您还剩余 <span class="badge badge-dark myChance">{$myChance}</span> 次机会</div>
+		{/eq}
+		<div class="scratch_viewport">
+			<div hidden class="scratch-reward">抽奖中...</div>
+			<!-- result picture -->
+
+		</div>
+		<div class="scratch-reset"><i class="fa fa-rotate-right"></i></div>
+		<div class="scratch-tips text-blue"><a class="text-blue" href="/team/inviter.html">邀请朋友加入获得更多的机会</a></div>
+	</div>
+
+
+
+
+
+	<img src="/static/image/1.png" id="shan-img" style="display:none;" />
+	<img src="/static/image/2.png" id="sorry-img" style="display:none;" />
+	<div class="turnplate" style="background-image:url(/static/image/turnplate-bg.png);background-size:100% 100%;">
+		<canvas id="turnplate-canvas"></canvas>
+		<img class="turnplate-pointer" src="/static/image/turnplate-pointer.png" />
+	</div>
+
+	<div class="card card-myrewards">
+		<div class="card-header">
+			<div class="card-title f1">我的奖品</div>
+			<div class="card-options">
+				<a href="#" class="card-options-collapse mr-1" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="card-body o-hidden p-0">
+			<table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+				<tbody>
+				{volist name="myRewardLog" id="item"}
+				<tr id="my{$item.id}" reward="{$item.reward_type}">
+					<td class="text-left">
+						<div class="small">{$item.reward}</div>
+						<div class="small">{$item.date}</div>
+					</td>
+					<td>
+						{switch item.status}
+						{case 1}
+						<span class="status-icon bg-success"></span> <small>已发货</small>
+						{/case}
+						{case 2}
+						<span class="status-icon bg-warning"></span> <small>待发货</small>
+						{/case}
+						{case 0}
+						<span class="status-icon bg-secondary"></span> <small>待提货</small>
+						{/case}
+						{/switch}
+					</td>
+					<td class="text-right">
+						{eq name="item.status" value="0"}
+						<button class="btn btn-secondary btn-sm btn-pickup">提货</button>
+						{else /}
+						{switch $item.reward_type}
+						{case 1}
+						<a class="btn btn-secondary btn-sm" href="/machine.html">查看</a>
+						{/case}
+						{case 8}
+						<a class="btn btn-secondary btn-sm" href="/wallet/record.html">查看</a>
+						{/case}
+						{default /}
+						<button class="btn btn-secondary btn-sm btn-look">查看</button>
+						{/switch}
+						{/eq}
+					</td>
+				</tr>
+				{/volist}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="card card-result">
+		<div class="card-header">
+			<div class="card-title f1">中奖名单</div>
+			<div class="card-options">
+				<a href="#" class="card-options-collapse mr-1" data-toggle="card-collapse"><i class="fe fe-chevron-up"></i></a>
+			</div>
+		</div>
+		<div class="card-body o-hidden pt-0 pr-3 pb-0 pl-3" style="height: 9.7rem;">
+			<ul class="list-unstyled list-separated namelist">
+			</ul>
+		</div>
+	</div>
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title f1">活动规则</div>
+		</div>
+		<div class="card-body pt-3 pr-3 pb-3 pl-0">
+			<ol class="pl-6">
+				{volist name="Think.config.hello.event.truntable.rule" id="text"}
+				<li>{$text}</li>
+				{/volist}
+			</ol>
+			<!-- 1. -->
+		</div>
+	</div>
+
+
+
+
+
+</div>
+{/block}
+{block name="script"}
+<script src="/layui/layui.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+layui.use('layer', function(){
+            var layer = layui.layer;
+        });
+
+
+
+require(['rotate'], function(){
+	
+	var turnplate = {
+		restaraunts: [],					
+		colors: ['#fff4d6', '#ffffff'],		
+		outsideRadius: 0,				
+		textRadius: 90,						
+		insideRadius: 30,				
+		startAngle: 0,						
+		bRotate: false						
+	};
+
+	var size, circle, canvas = document.getElementById('turnplate-canvas'), ctx = canvas.getContext("2d");;
+	
+	var resize = function(){
+		size = $('.wrapper').width();
+		$('.turnplate').css({
+			width: size,
+			height: size,
+		});
+		circle = size - 32;
+		turnplate.outsideRadius = circle / 2;
+		turnplate.textRadius = circle / 2 - 30;
+		$('.turnplate canvas').attr('width', circle).attr('height', circle);
+		console.log(size);
+		draw();
+	}
+	
+	function rnd(n, m){
+		var random = Math.floor(Math.random()*(m-n+1)+n);
+		return random;
+	}
+	
+	var byteLength = function(str) {
+        var realLength = 0, len = str.length, charCode = -1;
+        for (var i = 0; i < len; i++) {
+            charCode = str.charCodeAt(i);
+            if (charCode >= 0 && charCode <= 128)
+                realLength += 1;
+            else
+                realLength += 2;
+        }
+        return realLength;
+    };
+    
+  
+    
+	
+	$(function(){
+		
+		var rewards = JSON.parse('{$rewards|raw}');
+	    turnplate.restaraunts = rewards ;
+       console.log(rewards);
+	
+		resize();
+		$(window).on('resize', resize);
+		
+		var rotateTimeOut = function (){
+			$('#wheelcanvas').rotate({
+				angle:0,
+				animateTo:2160,
+				duration:8000,
+				callback:function (){
+					alert('网络超时，请检查您的网络设置！');
+				}
+			});
+		};
+	
+		var rotateFn = function (item, txt){
+		   
+			var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length*2));
+			if(angles < 270){
+				angles = 270 - angles;
+			}else{
+				angles = 360 - angles + 270;
+			}
+			$('#turnplate-canvas').stopRotate();
+			$('#turnplate-canvas').rotate({
+				angle:0,
+				animateTo:angles + 1800,
+				duration:8000,
+				callback:function (){
+			
+				 layer.msg("恭喜你中奖了，" + txt + ",系统已将次数奖励派送", {time: 5000});
+					turnplate.bRotate = !turnplate.bRotate;
+				}
+			});
+		};
+		
+		 $('.turnplate-pointer').click(function(){
+		     if (turnplate.bRotate) return;
+			  turnplate.bRotate = !turnplate.bRotate;
+                       $.ajax({
+                            url: '/turntable',
+                            type: 'post',
+                            data: {},
+                            cache: false,
+                            dataType: "json",
+                            success: function (data) {
+                              
+                                if (data.code == -1) {
+                                    layer.msg(data.txt);
+                                    return;
+                                }
+                                
+                                if (data.code == 200) {
+                                 
+                                     console.log("data-->",data.data.reward.name);
+                                  
+                                     var index = data.data.reward.index;
+                                     console.log(index);
+                                     var item = rewards.indexOf(data.data.reward.name)+1;
+                                     console.log(item);
+                                     rotateFn(item, turnplate.restaraunts[item - 1]);
+			                         console.log(item);
+			                        
+                                    return;
+                                }
+                                
+                                
+                                
+                            },
+                        })
+            });
+		
+});
+
+	
+
+	var draw = function() {
+		if (ctx) {
+		
+			var innerSize = circle;
+		
+			var arc = Math.PI / (turnplate.restaraunts.length / 2);
+			
+			ctx.clearRect(0, 0, circle, circle);
+		
+			ctx.strokeStyle = '#ffbe04';
+		
+			ctx.font = '14px Microsoft YaHei';
+			
+			for(var i = 0; i < turnplate.restaraunts.length; i++) {
+				var angle = turnplate.startAngle + i * arc;
+				ctx.fillStyle = turnplate.colors[i % 2];
+				ctx.beginPath();
+				
+				ctx.arc(innerSize / 2, innerSize / 2, turnplate.outsideRadius, angle, angle + arc, false);
+				ctx.arc(innerSize / 2, innerSize / 2, turnplate.insideRadius, angle + arc, angle, true);
+				ctx.stroke();
+				ctx.fill();
+			
+				ctx.save();
+
+				
+				ctx.fillStyle = '#e5302f';
+				var text = turnplate.restaraunts[i];
+				var line_height = 17;
+			
+				ctx.translate(innerSize / 2 + Math.cos(angle + arc / 2) * turnplate.textRadius, innerSize / 2 + Math.sin(angle + arc / 2) * turnplate.textRadius);
+			
+				ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+			
+					ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+			
+
+			
+				if (text.indexOf("等奖") > 0) {
+					var img = document.getElementById("shan-img");
+					img.onload = function(){
+						ctx.drawImage(img, -15, 10);
+					};
+					ctx.drawImage(img, -15, 10);
+				} else if (text.indexOf("谢谢参与") >= 0) {
+					var img = document.getElementById("sorry-img");
+					img.onload = function(){
+						ctx.drawImage(img, -15, 10);
+					};
+					ctx.drawImage(img, -15, 10);
+				}
+			
+				ctx.restore();
+			
+			}
+		}
+	}
+});
+</script>
+
+{/block}

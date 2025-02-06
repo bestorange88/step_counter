@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$title|default='绿步盈途'}</title>
+    
+    <!-- 引入全局样式 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="/assets/js/vendors/jquery-3.2.1.min.js"></script>
+    <script src="/assets/js/vendors/toastr/toastr.min.js"></script>
+    <link rel="stylesheet" href="/assets/js/vendors/toastr/toastr.min.css">
+
+    <link rel="stylesheet" href="/static/index/css/footer.css">
+    <style>
+        /* 隐藏包含加速度数据显示的整个段落 */
+        .hidden-section {
+            display: none;
+        }
+
+        /* 通用按钮样式 */
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3; /* 鼠标悬停时更深的蓝色 */
+        }
+
+        /* 奖励按钮特定样式 */
+        .reward-button {
+            font-weight: bold;
+        }
+
+        /* 禁用状态的奖励按钮样式 */
+        .reward-button:disabled {
+            background-color: #d3d3d3; /* 设置为灰色背景 */
+            color: #888888; /* 调整文字颜色为深灰色 */
+            cursor: not-allowed; /* 鼠标悬停时显示禁止图标 */
+        }
+
+        /* 主内容区域的样式 */
+        .main-content {
+            margin-top: 64px; /* 确保内容不与头部重叠 */
+            padding: 16px;
+        }
+    </style>
+     {block name="style"}{/block} <!-- 页面特定样式 -->
+</head>
+<body>
+
+    <!-- 引入全局 Header -->
+    {include file="common/header" /}
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        {block name="content"}{/block}
+    </main>
+
+    <!-- 引入全局 Footer -->
+    {include file="common/footer" /}
+    <script type="text/javascript" src="/assets/js/require.min.js"></script>
+    <script type="text/javascript" src="/static/js/global.js?1"></script>
+    {block name="script"}{/block}
+</body>
+</html>

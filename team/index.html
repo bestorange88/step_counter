@@ -1,0 +1,333 @@
+{extend name="common/layout" /}
+
+{block name="style"}
+<link rel="stylesheet" href="/static/index/css/team.css">
+<style>
+    .action-buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px; /* 按钮之间的间距 */
+        margin-bottom: 10px;
+    }
+    .action-buttons .btn {
+        background-color: #008C8C;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 15px; /* 调整内边距 */
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        white-space: nowrap; /* 不换行 */
+        overflow: hidden; /* 隐藏溢出 */
+        text-overflow: ellipsis; /* 文本溢出省略号 */
+        font-size: 14px; /* 缩小文字大小 */
+    }
+    .action-buttons .btn:hover {
+        background-color: #007777;
+        box-shadow: 0 4px 8px rgba(0, 123, 123, 0.2);
+    }
+    .action-buttons .btn + .btn {
+        margin-left: 10px;
+    }
+    .input-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .input-group input {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        flex: 1 0 200px;
+        text-align: left;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .input-group input:focus {
+        border-color: #008C8C;
+        box-shadow: 0 0 6px rgba(0, 140, 140, 0.4);
+    }
+    .input-group .btn-search {
+        background-color: #008C8C;
+        border: none;
+        border-radius: 8px;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .input-group .btn-search:hover {
+        background-color: #007777;
+        box-shadow: 0 4px 8px rgba(0, 123, 123, 0.2);
+    }
+    .input-group .btn-search img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+    /* Modal styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 12px;
+        position: relative;
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+{/block}
+
+{block name="content"}
+   <!-- 模块 1: 团队排行榜  -->
+<div class="ranking-container">
+    <div class="ranking-header">
+        <h2>团队排行榜</h2>
+    </div>
+    <div class="ranking-body">
+        {foreach name="rankData" item="inviterSteps" key="inviter"}
+        {foreach name="inviterSteps" item="step" key="index"}
+        <div class="ranking-item {if $index == 0}first{elseif $index == 1}second{else}third{/if}">
+          
+            <img src="{$step.crown_image}" alt="{$step.rank_text}" class="crown">
+           
+            <img src="{$step.avatar|default='/default-avatar.png'}" alt="头像" class="avatar">
+          
+            <div class="ranking-info">
+                <p class="ranking-name">{$step.username}</p>
+                <p class="ranking-score">今日：{$step.today_steps}步</p>
+            </div>
+        </div>
+        {/foreach}
+        {/foreach}
+    </div>
+</div>
+
+<div id="carousel" class="bg-white rounded-lg shadow-md p-4 mb-4">
+    <!-- 第一张卡片 -->
+    <a href="turntable.html" class="carousel-link">
+        <div class="carousel-item active" style="background-image: url('/static/index/img/zhuanpan.jpg');">
+            <h3> </h3>
+            <p> </p>
+        </div>
+    </a>
+    <!-- 第二张卡片
+    <a href="scratch.html" class="carousel-link">
+        <div class="carousel-item" style="background-image: url('/static/index/img/guaguale.jpg');">
+            <h3> </h3>
+            <p> </p>
+        </div>
+    </a> -->
+</div>
+
+<!-- 模块 2: 团队人数和积分 -->
+<div class="team-stats">
+    <!-- 团队人数模块 -->
+    <div class="team-card">
+        <div class="card-body">
+            <div class="card-unit text-green">位</div> <!-- 单位 -->
+            <div class="card-number purple">{$user.dashboard.team_count}</div> <!-- 数字 -->
+            <div class="card-description small text-muted">团队人数</div> <!-- 注释文字 -->
+        </div>
+    </div>
+
+    <!-- 团队积分模块 -->
+    <div class="team-card">
+        <div class="card-body">
+            <div class="card-unit text-red">分</div> <!-- 单位 -->
+            <div class="card-number blue">{$user.dashboard.team_power|money}</div> <!-- 数字 -->
+            <div class="card-description small text-muted">团队积分</div> <!-- 注释文字 -->
+        </div>
+    </div>
+</div>
+
+<!-- 模块 3: 搜索和成员表 -->
+<div class="member-search">
+    <!-- 团队管理按钮 -->
+    <div class="action-buttons">
+        <button class="btn" onclick="openModal('myTeamModal')">我的团队</button>
+        <button class="btn" onclick="openModal('createTeamModal')">创建团队</button>
+        <button class="btn" onclick="openModal('searchTeamModal')">寻找团队</button>
+        <button class="btn" onclick="openModal('inviteFriendModal')">邀请好友</button>
+    </div>
+    <!-- 搜索表单 -->
+    <div class="search-form">
+        <div class="input-group">
+            <!-- 下拉菜单 -->
+            <div class="input-group-prepend">
+                <select class="form-control custom-select w-auto" name="type">
+                    <option value="">全部成员</option>
+                    {volist name="Think.config.hello.level" id="item"}
+                    <option value="{$key}">{$item.name}</option>
+                    {/volist}
+                </select>
+            </div>
+            <!-- 搜索框 -->
+            <input type="text" class="form-control" placeholder="搜索成员..." name="key" maxlength="11">
+            <!-- 搜索按钮 -->
+            <button class="btn-search" type="button">
+                <img src="/static/index/img/search.png" alt="搜索图标">
+            </button>
+        </div>
+    </div>
+
+    <!-- 成员表格 -->
+    <div class="member-table">
+        <div class="table-responsive">
+            <table class="table table-hover table-outline table-vcenter text-nowrap card-table table-member">
+                <thead>
+                    <tr>
+                        <th class="text-center w-1">头像</th>
+                        <th>用户</th>
+                        <th class="text-center">步数</th>
+                        <th class="text-center">邀请</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- 示例数据 -->
+                    <!--
+                    <tr>
+                        <td class="text-center">
+                            <img src="/static/avatar1.png" alt="用户头像" class="avatar-img">
+                        </td>
+                        <td>张三<br><span class="text-muted">普通用户</span></td>
+                        <td class="text-center">5000</td>
+                        <td class="text-center">10</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">
+                            <img src="/static/avatar2.png" alt="用户头像" class="avatar-img">
+                        </td>
+                        <td>李四<br><span class="text-muted">未认证用户</span></td>
+                        <td class="text-center">3000</td>
+                        <td class="text-center">5</td>
+                    </tr>
+                    -->
+                    <!-- 更多行 -->
+                </tbody>
+            </table>
+        </div>
+        <!-- 加载更多 -->
+        <div class="card-footer text-center card-more">
+            点击加载更多
+        </div>
+    </div>
+</div>
+
+<!-- 模态弹窗 -->
+<div id="myTeamModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('myTeamModal')">&times;</span>
+        <h2>我的团队</h2>
+        <div>
+            <h3>团队信息</h3>
+            <p>这里显示团队的详细信息。</p>
+        </div>
+        <div>
+            <h3>团队成员</h3>
+            <ul id="teamMembers">
+                <li>成员1</li>
+                <li>成员2</li>
+                <li>成员3</li>
+                <!-- 可以动态生成团队成员列表 -->
+            </ul>
+        </div>
+        <button class="btn" onclick="openModal('inviteFriendModal')">团队邀请</button>
+    </div>
+</div>
+
+<div id="createTeamModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('createTeamModal')">&times;</span>
+        <h2>创建团队</h2>
+        <form>
+            <label for="team-name">团队名称：</label>
+            <input type="text" id="team-name" name="team-name" required>
+            <label for="team-description">团队描述：</label>
+            <textarea id="team-description" name="team-description" required></textarea>
+            <button type="submit">创建</button>
+        </form>
+    </div>
+</div>
+
+<div id="searchTeamModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('searchTeamModal')">&times;</span>
+        <h2>寻找团队</h2>
+        <form>
+            <label for="search-key">搜索团队：</label>
+            <input type="text" id="search-key" name="search-key" placeholder="输入团队名称或关键字" required>
+            <button type="submit">搜索</button>
+        </form>
+        <!-- 这里可以显示搜索结果 -->
+    </div>
+</div>
+
+<div id="inviteFriendModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('inviteFriendModal')">&times;</span>
+        <h2>邀请好友</h2>
+        <form>
+            <label for="friend-email">好友的电子邮件：</label>
+            <input type="email" id="friend-email" name="friend-email" placeholder="输入好友的电子邮件" required>
+            <button type="submit">发送邀请</button>
+        </form>
+    </div>
+</div>
+
+{/block}
+
+{block name="script"}
+<script type="text/javascript" src="/static/index/js/team.js?1"></script>
+<script type="text/javascript" src="/static/js/team.js?1"></script>
+<script>
+    // 打开模态弹窗
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "flex";
+    }
+
+    // 关闭模态弹窗
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    // 点击窗口外部关闭模态弹窗
+    window.onclick = function(event) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+</script>
+{/block}

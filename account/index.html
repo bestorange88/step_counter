@@ -1,0 +1,189 @@
+{extend name="common/layout" /}
+
+{block name="title"}绿步盈途 - 我的{/block}
+
+{block name="style"}
+<link rel="stylesheet" href="/static/index/css/account.css">
+{/block}
+
+{block name="content"}
+<div class="my-page max-w-md mx-auto min-h-screen bg-gray-50">
+    <!-- 个人信息模块 -->
+    <div class="personal-info">
+        <!-- 左侧头像 -->
+        <div class="avatar-container">
+            <div class="avatar" onclick="document.getElementById('avatar-upload').click()">
+                <img id="avatar-preview" src="{:avatar($user.profile.avatar, $user.profile.idcard)}" alt="用户头像">
+            </div>
+            <p class="change-avatar" onclick="document.getElementById('avatar-upload').click()">更换头像</p>
+            <input type="file" id="avatar-upload" class="hidden" accept="image/*">
+        </div>
+    
+        <!-- 中间个人信息 -->
+        <div class="user-info">
+            <p class="nickname">昵称：{$user.account.nickname}</p>
+            <p class="level" style="font-size: 16px; margin: 5px 0;">
+        等级：
+        <span id="dynamic-text">Lv-{$user.account.member_level}</span>
+    </p>
+            <p class="realname" style="font-size: 16px; margin: 5px 0; white-space: nowrap !important;">
+        真实姓名：
+        {if condition="$user.account.authen == 0"}
+            未认证
+        {elseif condition="$user.account.authen == 1"}
+            {$user.account.name}
+        {elseif condition="$user.account.authen == 2"}
+            审核中
+        {/if}
+    </p>
+            <!-- 图标栏 -->
+            <div class="icons">
+                <img src="/static/index/img/id-card.png" alt="ID Card" class="icon-item">
+                <img src="/static/index/img/credit-card.png" alt="Credit Card" class="icon-item">
+                <img src="/static/index/img/we-chat.png" alt="WeChat" class="icon-item">
+                <img src="/static/index/img/mobile-phone.png" alt="Mobile Phone" class="icon-item">
+            </div>
+        </div>
+
+        <!-- 右侧步行总里程和邀请朋友 -->
+        <div class="mileage-invite-container">
+            <!-- 总里程 -->
+            <div class="total-mileage">
+                <div class="value">
+                    <img src="/static/index/img/walk_all.png" alt="步行图标" class="mileage-icon">
+                    <span class="mileage-number">{$user.dashboard.walkingDistance}</span>
+                </div>
+                <div class="label">步行总里程</div>
+            </div>
+            <!-- 邀请朋友 -->
+            <div class="invite-friend">
+                <a class="text-blue" href="/team/inviter.html">
+                <img src="/static/index/img/qrcode.png" alt="邀请朋友图标" class="invite-icon">
+                <span class="invite-text">邀请朋友</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 弹窗：显示邀请链接和二维码 -->
+    <div id="invite-modal" class="invite-modal hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">邀请朋友</h3>
+            <p class="invite-link-text">我的邀请链接：</p>
+            <div class="invite-link-container">
+                <input type="text" id="invite-link" readonly value="{:url('register', ['inviter' => $user.account.username], true, true)}">
+                <button class="copy-btn" onclick="copyInviteLink()">复制</button>
+            </div>
+            <p class="invite-qr-text">扫描二维码注册：</p>
+            <img id="invite-qrcode" src="/qrcode/{$user.account.username}.png" alt="邀请二维码">
+            <button class="close-btn" onclick="toggleQRCode()">关闭</button>
+        </div>
+    </div>
+
+    <!-- 我的钱包模块 -->
+    <div class="wallet">
+        <div class="wallet-info">
+            <h2 class="wallet-title">我的钱包</h2>
+            <p class="wallet-balance">账户总余额：<span class="amount" id="balance">￥{$user.wallet.money|default=0}</span></p>
+            <p class="wallet-withdrawable">可提现金额：<span class="amount" id="withdrawable-balance">￥{$user.wallet.deposit|default=0}</span></p>
+        </div>
+        <div class="wallet-actions">
+            <a href="account/withdrawal" class="btn-withdraw">提 现</a>
+        </div>
+    </div>
+
+    <!-- 快捷操作模块 -->
+    <div class="quick-actions">
+        <a href="/account/record.html" class="action-item">
+            <img src="/static/index/img/bill.png" alt="账单图标" class="action-icon">
+            <span class="action-text">账单</span>
+        </a>
+        <a href="/transfer.html" class="action-item">
+            <img src="/static/index/img/transfer.png" alt="转账图标" class="action-icon">
+            <span class="action-text">转账</span>
+        </a>
+    </div>
+
+    <!-- 一周签到模块 -->
+    <div class="weekly-sign">
+        <h2 class="weekly-title">一周签到</h2>
+        <div class="week">
+            {volist name="weekSign" id="dayData" key="index"}
+            <div class="day {if $dayData['signed']}bg-signed{elseif $index == $todayWeekday && !$dayData['signed']}bg-highlight{else}bg-gray-disabled{/if}">
+                {if $dayData['signed']}
+                <i class="fas fa-check"></i>
+                {elseif $index == $todayWeekday && !$dayData['signed']}
+                <button class="sign-in-button" data-day="{$dayData['day']}">签到</button>
+                {else /}
+                <i class="fas fa-times"></i>
+                {/if}
+                <p>{$dayData.label}</p>
+            </div>
+            {/volist}
+        </div>
+        <p id="continuous-sign-in-message" class="sign-info">
+            {if $isSignedToday}
+            已连续签到 {$lastConsecutiveDays} 天，继续保持！
+            {else /}
+            今天还未签到！之前连续签到 {$lastConsecutiveDays} 天。
+            {/if}
+        </p>
+    </div>
+
+    <!-- 功能模块列表 -->
+    <div class="function-list">
+        <a href="/account/profile.html">
+            <div class="icon-text">
+                <img src="/static/index/img/info1.png" alt="个人资料">
+                <span>个人资料</span>
+            </div>
+        </a>
+        <a href="/account/authen.html">
+            <div class="icon-text">
+                <img src="/static/index/img/id_card.png" alt="实名认证">
+                <span>实名认证</span>
+            </div>
+        </a>
+        <a href="/team/inviter.html">
+            <div class="icon-text">
+                <img src="/static/index/img/addteam.png" alt="团队招募">
+                <span>团队招募</span>
+            </div>
+        </a>
+        <a href="/team">
+            <div class="icon-text">
+                <img src="/static/index/img/teams.png" alt="我的团队">
+                <span>我的团队</span>
+            </div>
+        </a>
+        <a href="/turntable.html">
+            <div class="icon-text">
+                <img src="/static/index/img/gift.png" alt="抽奖专区">
+                <span>抽奖专区</span>
+            </div>
+        </a>
+       <a href="https://qiuqiu.hminb.com" target="_blank">
+            <div class="icon-text">
+                <img src="/static/index/img/service.png" alt="在线客服">
+                <span>在线客服</span>
+            </div>
+        </a>
+        <a href="/help.html">
+            <div class="icon-text">
+                <img src="/static/index/img/help.png" alt="帮助中心">
+                <span>帮助中心</span>
+            </div>
+        </a>
+    </div>
+    <button id="logout-button" class="btn btn-danger">
+        <div class="icon-text">
+            <img src="/static/index/img/signout.png" alt="退出登录">
+            <span>退出登录</span>
+        </div>
+    </button>
+</div>
+{/block}
+
+{block name="script"}
+<script src="/static/index/js/account.js"></script>
+{/block}

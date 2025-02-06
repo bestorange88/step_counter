@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="format-detection" content="telephone=no, email=no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, viewport-fit=cover, shrink-to-fit=no" />
+    <meta http-equiv="Content-Language" content="en" />
+    <meta name="msapplication-TileColor" content="#2d89ef" />
+    <meta name="theme-color" content="#4188c9" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <link rel="icon" href="/favicon.ico?2" type="image/x-icon" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?2" />
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/css/dashboard.css?3" />
+    <link rel="stylesheet" href="/static/css/global.css?3" />
+    <title>{block name="title"}Title{/block}</title>
+    <style>
+        @media (max-width: 360px) {
+            .icon-group {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            .icon-news {
+                display: none !important;
+            }
+        }
+    </style>
+    {block name="style"}{/block}
+</head>
+
+<body>
+<!-- content -->
+<div class="page">
+    <div class="page-main">
+        <div class="header collapse d-lg-flex p-0" id="headerMenuCollapse">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- <div class="col-lg-3 ml-auto header-search-div">
+                        <form class="input-icon my-3 my-lg-0">
+                            <input type="search" class="form-control header-search" placeholder="Search&hellip;" tabindex="1">
+                            <div class="input-icon-addon">
+                                <i class="fe fe-search"></i>
+                            </div>
+                        </form>
+                    </div> -->
+                    <div class="col-lg order-lg-first">
+                        <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+
+                            <li class="nav-item">
+                                <a href="/machine.html" target="_blank" class="nav-link{$Request.path == 'machine' ? ' active' : ''}">
+                                    <span><i class="fe fe-home"></i></span>
+                                    <span>首页</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="/store.html" target="_blank" class="nav-link{$Request.path == 'store' ? ' active' : ''}">
+                                    <span><i class="fa fa-bookmark-o"></i></span>
+                                    <span>任务</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/market.html" target="_blank" class="nav-link{$Request.path == 'market' ? ' active' : ''}">
+                                    <span><i class="fa fa-handshake-o"></i></span>
+                                    <span>市场</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/account.html"  target="_blank" class="nav-link{$Request.path == 'account' || $Request.path == '' ? ' active' : ''}">
+                                    <span><i class="fa fa-user-o"></i></span>
+                                    <span>我的</span>
+                                </a>
+                            </li>
+                            <li hidden class="nav-item d-md-block d-lg-block">
+                                <a href="/help.html" target="_blank" class="nav-link{$Request.path == 'help' ? ' active' : ''}">
+                                    <span><i class="fe fe-help-circle"></i></span>
+                                    <span>规则</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer class="footer d-xs-none d-sm-none d-lg-block">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-auto ml-lg-auto">
+                    <div class="row align-items-center">{$Think.now}</div>
+                </div>
+                <div class="col-12 col-lg-auto mt-3 mt-lg-0 text-center">
+                    Copyright © 2019 <a href="https://url.hk.cn/R0KU">{$Think.config.hello.title}</a>. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<div class="modal fade modal-group" id="modal-group" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">官方交流群</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {$group.content|raw}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">我知道了</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/assets/js/require.min.js"></script>
+<script type="text/javascript" src="/static/js/global.js?3"></script>
+{block name="script"}{/block}
+</body>
+</html>

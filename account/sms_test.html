@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>获取手机验证码</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>获取手机验证码</h2>
+        <div class="form-group">
+            <label for="phone">手机号：</label>
+            <input type="text" id="phone" placeholder="请输入手机号">
+        </div>
+        <button id="getCodeBtn">获取验证码</button>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        const getCodeBtn = document.getElementById('getCodeBtn');
+        const phoneInput = document.getElementById('phone');
+        const messageDiv = document.getElementById('message');
+
+        getCodeBtn.addEventListener('click', () => {
+            const phone = phoneInput.value.trim();
+
+            // 简单手机号验证
+            if (!/^1[3-9]\d{9}$/.test(phone)) {
+                messageDiv.textContent = "请输入有效的手机号！";
+                return;
+            }
+
+            // 禁用按钮防止重复点击
+            getCodeBtn.disabled = true;
+            messageDiv.textContent = "正在发送验证码...";
+
+            // 调用后端接口发送验证码
+            fetch('/api/sms/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ phone })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 200) {
+                        messageDiv.textContent = "验证码发送成功！请查收短信。";
+                    } else {
+                        messageDiv.textContent = `发送失败：${data.msg}`;
+                    }
+                })
+                .catch(error => {
+                    messageDiv.textContent = "网络错误，请稍后重试。";
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    getCodeBtn.disabled = false;
+                });
+        });
+    </script>
+</body>
+</html>

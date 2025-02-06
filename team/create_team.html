@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>创建团队</title>
+</head>
+<body>
+    <h2>创建团队</h2>
+    <form id="createTeamForm">
+        <label for="teamName">团队名称:</label><br>
+        <input type="text" id="teamName" name="teamName"><br><br>
+        <label for="teamDescription">团队描述:</label><br>
+        <textarea id="teamDescription" name="teamDescription"></textarea><br><br>
+        <button type="button" onclick="createTeam()">创建团队</button>
+    </form>
+
+    <script>
+        function createTeam() {
+            var teamName = document.getElementById('teamName').value;
+            var teamDescription = document.getElementById('teamDescription').value;
+
+            fetch('/index.php/Team/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: teamName,
+                    description: teamDescription,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('团队创建成功');
+                } else {
+                    alert('团队创建失败: ' + data.message);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<style>
+/* Reset some basic styles */
+body, h1, p, a, img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.welcome-bg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('/static/index/img/background.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.custom-container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: -100px; /* 将所有模块整体向上移动100px */
+}
+
+.custom-center {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.custom-logo {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.custom-title {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.custom-description {
+    margin-bottom: 20px;
+}
+
+.custom-images {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+
+.description-img {
+    max-width: 30%;
+    height: auto;
+    margin: 10px;
+}
+
+.login-bg {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.custom-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-btn-secondary, .custom-btn-primary {
+    display: block;
+    width: 80%;
+    max-width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    color: white; /* 保持按钮字体颜色 */
+    border-radius: 5px;
+}
+
+.custom-btn-secondary {
+    background-color: #777; /* 保持按钮颜色 */
+}
+
+.custom-btn-primary {
+    background-color: #4caf50; /* 保持按钮颜色 */
+}
+
+.custom-footer {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: -50px; /* 将页脚部分向上移动 */
+}
+
+.custom-footer a {
+    color: #4caf50;
+    text-decoration: none;
+}
+
+.custom-footer a:hover {
+    text-decoration: underline;
+}
+
+.custom-copyright {
+    text-align: center;
+    color: #aaa;
+    margin-top: -30px; /* 将版权声明部分向上移动 */
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .description-img {
+        max-width: 45%;
+    }
+}
+
+@media (max-width: 480px) {
+    .description-img {
+        max-width: 100%;
+    }
+
+    .custom-title {
+        font-size: 1.5em;
+    }
+
+    .custom-btn-secondary, .custom-btn-primary {
+        width: 100%;
+    }
+}
+</style>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>绿步盈途 - 欢迎您</title>
+    <link rel="stylesheet" href="/static/css/welcome.css" />
+</head>
+
+<body>
+    <div class="welcome-bg">
+        <!-- 主容器 -->
+        <main class="custom-container">
+            <!-- 第一模块：Logo 和欢迎语 -->
+            <div class="custom-center">
+                <!-- Logo -->
+                <img src="/static/index/img/logo_2.png" alt="Logo" class="custom-logo" />
+                <!-- 主标题 -->
+                <h1 class="custom-title">绿步致远 健康盈途</h1>
+
+                <!-- 内容描述 -->
+                <div class="custom-description">
+                    <div class="custom-images">
+                        <img src="/static/index/img/welcome01.png" alt="描述1" class="description-img">
+                        <img src="/static/index/img/welcome02.png" alt="描述2" class="description-img">
+                        <img src="/static/index/img/welcome03.png" alt="描述3" class="description-img">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二模块：选择按钮 -->
+            <div class="login-bg">
+                <div class="card-body custom-card-body">
+                    <!-- 按钮组 -->
+                    <a href="/signin.html" class="custom-btn-secondary">已有账号登录</a>
+                    <a href="/signup.html" class="custom-btn-primary">注册新的账号</a>
+                </div>
+            </div>
+
+            <!-- 第三模块：页脚 -->
+            <div class="custom-footer">
+                <p>倡导环保健康的生活方式指南。</p>
+                <p><a href="/about">了解更多关于我们</a></p>
+            </div>
+
+            <!-- 版权声明 -->
+            <div class="custom-copyright">
+                © 2023 绿步盈途. 保留所有权利.
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

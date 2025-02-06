@@ -1,0 +1,158 @@
+{extend name="common/layout"}
+{block name="title"}提现记录{/block}
+{block name="style"}
+<style>
+/* 设置全局样式 */
+body {
+    font-family: Arial, sans-serif; /* 字体样式 */
+    background-color: #F2F8E6; /* 背景颜色 */
+
+}
+
+/* 容器样式 */
+.container {
+    width: 100%; /* 宽度减去60px的边距 */
+    height: 100%;
+    max-width: 1200px; /* 最大宽度1200px */
+    margin: 20px auto 20px auto; /* 上和下边距 */
+    background-color: #FFFFFF; /* 背景颜色 */
+    border-radius: 12px; /* 边框圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    padding: 20px; /* 内边距 */
+    box-sizing: border-box; /* 包含内边距和边框在内的盒子模型 */
+}
+
+/* 卡片样式 */
+.card {
+    background-color: #FFFFFF; /* 背景颜色 */
+    border-radius: 12px; /* 边框圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    padding: 20px; /* 内边距 */
+    margin: 20px 0; /* 上下边距 */
+}
+
+/* 卡片标题样式 */
+.card-title {
+    font-size: 1.25rem; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    color: #333333; /* 字体颜色 */
+    margin-bottom: 1rem; /* 底部边距 */
+}
+
+/* 卡片标题中的次要文本样式 */
+.card-title .text-muted {
+    font-size: 0.9rem; /* 字体大小 */
+    color: #666666; /* 字体颜色 */
+}
+
+/* 表格样式 */
+.table {
+    width: 100%; /* 宽度100% */
+    margin-bottom: 1rem; /* 底部边距 */
+    color: #212529; /* 字体颜色 */
+    border-collapse: collapse; /* 边框折叠 */
+}
+
+/* 表格头部和单元格样式 */
+.table th,
+.table td {
+    padding: .75rem; /* 内边距 */
+    vertical-align: top; /* 垂直对齐 */
+    border-top: 1px solid #dee2e6; /* 上边框 */
+}
+
+/* 表格头部样式 */
+.table thead th {
+    vertical-align: bottom; /* 垂直对齐 */
+    border-bottom: 2px solid #dee2e6; /* 底边框 */
+}
+
+/* 表格主体样式 */
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6; /* 上边框 */
+}
+
+/* 表格悬停效果 */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, .075); /* 悬停背景颜色 */
+}
+
+/* 文字右对齐 */
+.text-right {
+    text-align: right; /* 右对齐 */
+}
+
+/* 文字居中对齐 */
+.text-center {
+    text-align: center; /* 居中对齐 */
+}
+
+/* 次要文本样式 */
+.text-muted {
+    font-size: 14px; /* 字体大小 */
+    color: #6c757d !important; /* 字体颜色 */
+}
+
+/* 状态样式 */
+.status-pending {
+    color: #ffc107; /* 待处理状态颜色 */
+}
+
+.status-approved {
+    color: #28a745; /* 已通过状态颜色 */
+}
+
+.status-rejected {
+    color: #dc3545; /* 已拒绝状态颜色 */
+}
+</style>
+{/block}
+{block name="content"}
+<div class="container">
+    <div class="card">
+        <div class="card-title">
+            <div class="text-black mb-1">提现记录</div>
+            <div class="text-muted" style="font-size: .9rem;">查看您的提现记录</div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>金额</th>
+                    <th>银行卡号</th>
+                    <th>银行名称</th>
+                    <th>状态</th>
+                    <th>日期</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 这里是示例数据，请在实际应用中动态生成 -->
+                <tr>
+                    <td>￥1000.00</td>
+                    <td>6222 1234 5678 9012</td>
+                    <td>中国银行</td>
+                    <td class="status-pending">待处理</td>
+                    <td>2024-12-25 14:30</td>
+                </tr>
+                <tr>
+                    <td>￥2000.00</td>
+                    <td>6222 1234 5678 9013</td>
+                    <td>工商银行</td>
+                    <td class="status-approved">已通过</td>
+                    <td>2024-12-20 09:45</td>
+                </tr>
+                <tr>
+                    <td>￥500.00</td>
+                    <td>6222 1234 5678 9014</td>
+                    <td>农业银行</td>
+                    <td class="status-rejected">已拒绝</td>
+                    <td>2024-12-15 16:00</td>
+                </tr>
+                <!-- 动态生成结束 -->
+            </tbody>
+        </table>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/javascript" src="/static/js/withdrawal_record.js"></script>
+{/block}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>忘记密码</title>
+    <link rel="stylesheet" href="/static/css/forgot.css">
+</head>
+<body>
+    <div class="login-bg">
+        <!-- 主容器 -->
+        <main class="custom-container">
+            <!-- Logo 和标题 -->
+            <div class="custom-center">
+                <img src="/static/index/img/logo_2.png" class="custom-logo" alt="绿步盈途">
+                <h1 class="custom-title">找回密码</h1>
+                <p class="custom-subtitle">请验证您的身份以重置密码</p>
+            </div>
+
+            <!-- 忘记密码表单 -->
+            <div class="card forgot">
+                <div class="card-body custom-card-body">
+                    <!-- 输入手机号码 -->
+                    <div class="form-group">
+                        <label class="form-label">手机号码</label>
+                        <input type="tel" maxlength="11" name="username" class="form-control" placeholder="请输入您的手机号码">
+                    </div>
+            
+                    <!-- 图形验证码 -->
+                    <div class="form-group relative">
+                        <label class="form-label">图形验证码</label>
+                        <div class="relative">
+                            <input type="text" maxlength="3" name="captcha" class="form-control captcha-input" placeholder="数字验证码">
+                            <span class="captcha-touch">
+                                <img src="{:url('service/captcha')}" class="captcha" alt="验证码">
+                            </span>
+                        </div>
+                    </div>
+            
+                    <!-- 手机验证码 -->
+                    <div class="form-group relative">
+                        <label class="form-label">手机验证码</label>
+                        <div class="relative">
+                            <input type="text" maxlength="6" name="verify_code" class="form-control captcha-input" placeholder="请输入手机验证码">
+                            <button class="get-captcha">获取验证码</button>
+                        </div>
+                    </div>
+            
+                    <!-- 下一步按钮 -->
+                    <div class="form-footer">
+                        <button type="submit" class="custom-button custom-primary">继续，下一步</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 页脚 -->
+            <div class="custom-footer">
+                {empty name="Think.get.i"}
+                算了，<a href="./signin.html">我再想想！</a>
+                {else /}
+                算了，<a href="./signin.html?i={$Think.get.i}">我再想想！</a>
+                {/empty}
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="/static/js/forgot.js"></script>
+</body>
+</html>

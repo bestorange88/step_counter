@@ -1,0 +1,227 @@
+{extend name="common/layout"}
+
+{block name="title"}我的资料{/block}
+
+{block name="style"}
+<style>
+/* 全局样式 */
+.container {
+    background-color: #F2F8E6;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 2px;
+}
+
+.card {
+    width: 100%;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.card-body {
+    padding: 20px;
+    padding-top: 10px;
+    position: relative;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    background-color: #F2F8E6;
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #ddd;
+}
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #DDD;
+    margin-right: 20px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.social-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.social-links a {
+    text-decoration: none;
+    color: #008C8C;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+social-links a:hover {
+    color: #0056b3;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.btn {
+    padding: 10px 20px;
+    color: #FFF;
+    background-color: #008C8C;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+.btn:hover {
+    background-color: #006666;
+}
+</style>
+{/block}
+
+{block name="content"}
+<div class="container">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">编辑资料</h3>
+                <form id="profile-form" action="/index/authen/updateProfile" method="POST">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>手机号码</label>
+                            <input type="text" value="{$user.account.username}" disabled>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>个性昵称</label>
+                            <input type="text" name="nickname" value="{$user.account.nickname}">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>微信账号</label>
+                            <input type="text" name="wechat" value="<?php echo htmlentities(isset($user['account']['wechat']) ? $user['account']['wechat'] : ''); ?>">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>QQ号码</label>
+                            <input type="text" name="qq" value="<?php echo htmlentities(isset($user['account']['qq']) ? $user['account']['qq'] : ''); ?>">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>支付宝</label>
+                            <input type="text" name="alipay" value="<?php echo htmlentities(isset($user['account']['alipay']) ? $user['account']['alipay'] : ''); ?>">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>银行名称</label>
+                            <input type="text" name="bankname" value="<?php echo htmlentities(isset($user['account']['bankname']) ? $user['account']['bankname'] : ''); ?>">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>银行卡号</label>
+                            <input type="text" name="bankcard" value="<?php echo htmlentities(isset($user['account']['bankcard']) ? $user['account']['bankcard'] : ''); ?>">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>银行地址</label>
+                            <input type="text" name="bankaddress" value="<?php echo htmlentities(isset($user['account']['bankaddress']) ? $user['account']['bankaddress'] : ''); ?>">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>真实姓名</label>
+                            <input type="text" value="{$user.account.name}" disabled>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>身份证号码</label>
+                            <input type="text" value="{$user.account.id_card}" disabled>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">更新资料</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 弹窗模态框 -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="modal-message"></p>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('profile-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 阻止默认表单提交
+
+        // 使用 Fetch API 提交表单数据
+        var formData = new FormData(this);
+        fetch('/index/authen/updateProfile', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            var modal = document.getElementById("myModal");
+            var modalMessage = document.getElementById("modal-message");
+
+            if (data.code === 200) {
+                modalMessage.innerText = "资料更新成功！";
+            } else {
+                modalMessage.innerText = data.message;
+            }
+            modal.style.display = "block"; // 显示弹窗
+
+            // 关闭按钮点击事件
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            // 点击弹窗外部关闭弹窗
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        })
+        .catch(error => {
+            var modal = document.getElementById("myModal");
+            var modalMessage = document.getElementById("modal-message");
+            modalMessage.innerText = "提交失败，请重试！";
+            modal.style.display = "block";
+        });
+    });
+});
+</script>
+{/block}

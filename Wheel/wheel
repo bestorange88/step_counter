@@ -1,0 +1,715 @@
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+        <title>
+            {~echo sp_cfg('website')}
+        </title>
+        <link rel="stylesheet" href="/Public/layui/css/layui.css"  media="all">
+        <link href="/Public/statics/css/vip.css?id=222" rel="stylesheet">
+    </head>
+    <script>(function () {
+        if (("standalone" in window.navigator) && window.navigator.standalone) {
+            var noddy, remotes = false;
+            document.addEventListener("click", function (event) {
+                noddy = event.target;
+                while (noddy.nodeName !== "A" && noddy.nodeName !== "HTML") noddy = noddy.parentNode;
+                if ("href" in noddy && noddy.href.indexOf("http") !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes)) {
+                    event.preventDefault();
+                    document.location.href = noddy.href;
+                }
+            }, false);
+        }
+    }());</script>
+    <style>
+
+        html, body {
+            color: #333;
+            margin: 0;
+            height: 100%;
+            font-family: "Myriad Set Pro", "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: normal;
+            background: #eee;
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        a, label, button, input, select {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+
+        img {
+            border: 0;
+        }
+
+        body {
+            color: #666;
+        }
+
+        html, body, div, dl, dt, dd, ol, ul, li, h1, h2, h3, h4, h5, h6, p, blockquote, pre, button, fieldset, form, input, legend, textarea, th, td {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #08acee;
+        }
+
+        button {
+            outline: 0;
+        }
+
+        img {
+            border: 0;
+        }
+
+        button, input, optgroup, select, textarea {
+            margin: 0;
+            font: inherit;
+            color: inherit;
+            outline: none;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            color: #666;
+        }
+
+        .clearfix::after {
+            clear: both;
+            content: ".";
+            display: block;
+            height: 0;
+            visibility: hidden;
+        }
+
+        .clearfix {
+        }
+
+
+        .divHeight {
+            width: 100%;
+            height: 10px;
+            background: #f5f5f5;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .r-line {
+            position: relative;
+        }
+
+        .r-line:after {
+            content: '';
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            right: 0;
+            height: 100%;
+            border-right: 1px solid #D9D9D9;
+            -webkit-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+            -webkit-transform-origin: 100% 0;
+            transform-origin: 100% 0;
+        }
+
+        .b-line {
+            position: relative;
+        }
+
+        .b-line:after {
+            content: '';
+            position: absolute;
+            z-index: 2;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+        }
+
+        .aui-flex {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            padding: 15px;
+            position: relative;
+        }
+
+        .aui-flex-box {
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            flex: 1;
+            min-width: 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+
+        /* 蹇呰甯冨眬鏍峰紡css */
+        .aui-flexView {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+        .aui-scrollView {
+            width: 100%;
+            height: 100%;
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+            -ms-flex: 1;
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            margin-top: 0;
+        }
+
+        .aui-navBar {
+            height: 44px;
+            position: relative;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            z-index: 1002;
+            background: #fff;
+        }
+
+
+        .aui-navBar-item {
+            height: 44px;
+            min-width: 25%;
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 0 25%;
+            -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
+            padding: 0 0.9rem;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #808080;
+            position: relative;
+        }
+
+        .aui-navBar-item:first-child {
+            -webkit-box-ordinal-group: 2;
+            -webkit-order: 1;
+            -ms-flex-order: 1;
+            order: 1;
+            margin-right: -25%;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .aui-navBar-item:last-child {
+            -webkit-box-ordinal-group: 4;
+            -webkit-order: 3;
+            -ms-flex-order: 3;
+            order: 3;
+            -webkit-box-pack: end;
+            -webkit-justify-content: flex-end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+        }
+
+        .aui-center {
+            -webkit-box-ordinal-group: 3;
+            -webkit-order: 2;
+            -ms-flex-order: 2;
+            order: 2;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+            -ms-flex-align: center;
+            align-items: center;
+            height: 44px;
+            width: 50%;
+            margin-left: 25%;
+        }
+
+        .aui-center-title {
+            text-align: center;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            display: block;
+            text-overflow: ellipsis;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+
+        .tab-nav-item.tab-active {
+            /* background-color: #51bd03; */
+        }
+
+        .tab-nav-item.tab-active a {
+            color: #00c3f5;
+            font-weight: normal;
+        }
+
+        .tab-nav-item a {
+            display: inherit;
+            color: inherit;
+            font-size: 0.85rem;
+            color: #7d7d7d;
+        }
+
+        .tab-panel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab-panel .tab-panel-item {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+
+            line-height: 25px;
+        }
+
+        .tab-nav-item.tab-active:before {
+            content: '';
+            width: 50%;
+            height: auto;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            margin-left: -25%;
+            z-index: 4;
+            border: 1px solid #00c3f5;
+        }
+
+        .tab-panel .tab-panel-item.tab-active ~ .tab-panel-item {
+            -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+        }
+
+        .tab-panel .tab-panel-item.tab-active {
+            position: relative;
+            -webkit-transition: -webkit-transform .15s;
+            transition: -webkit-transform .15s;
+            transition: transform .15s;
+            transition: transform .15s, -webkit-transform .15s;
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        .tab-item {
+            padding: 20px;
+        }
+
+        .aui-layNews-time {
+            background: #bebebe;
+            color: #fff;
+            font-size: 12px;
+            margin: 0 auto;
+            width: 100px;
+            text-align: center;
+            border-radius: 3px;
+            text-align: left;
+        }
+
+        .aui-layNews-arrow {
+            position: relative;
+
+        }
+
+        .aui-layNews-arrow:before {
+            content: " ";
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+            border-width: 2px 2px 0 0;
+            border-color: #cccccc;
+            border-style: solid;
+            -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+            transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+            position: relative;
+            top: -2px;
+            position: absolute;
+            top: 50%;
+            margin-top: -4px;
+            right: 2px;
+            border-radius: 2px;
+        }
+
+        .aui-layNews-text {
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        .aui-layNews-text h2 {
+            color: #f0415f;
+            font-size: 14px;
+            font-weight: normal;
+            padding-bottom: 5px;
+        }
+
+        .aui-layNews-text p {
+            font-size: 13px;
+            color: #666666;
+        }
+
+
+        .aui-layNews-text .aui-flex {
+            padding: 15px 0 0 0;
+        }
+
+        .aui-layNews-info {
+            padding-bottom: 15px;
+            text-align: left;
+        }
+
+        .aui-layNews-no {
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #999999;
+        }
+
+        body {
+            background: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .rotate-con-pan {
+            background: url(/Public/statics/img/desk3.png) no-repeat 0 0;
+            background-size: 100% 100%;
+            position: relative;
+            width: 380px;
+            height: 380px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .rotate-con-zhen {
+            width: 60px;
+            height: 112px;
+            background: url(/Public/statics/img/start.png) no-repeat 0 0;
+            background-size: 100% 100%;
+            cursor: pointer;
+            position: absolute;
+            left: 160px;
+            top: 140px;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: 80px;
+        }
+        .swiper-slide {
+            text-align: center;
+            width: 100%;
+            height: 50px;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
+    <body style="">
+        <div id="app" style="background-size: 100% auto !important; background-repeat: no-repeat; background-image: url(/Public/images/wheel-bg.png); background-color: #f6b26b; height: 129%;">
+            <div data-v-651efe22="" class="header">
+                <div data-v-4a755b62="" data-v-651efe22="" class="nut-navbar top-nav">
+                    <div class="nav-left" style="top: 70%;">
+                        <div class="back">
+                             <a data-v-4a755b62="" href="{:U('Member/index')}"     style="display: inline-block;">
+                                <img data-v-4a755b62="" src="/Public/statics/img/back.png" alt="" style="width: 0.48rem;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="nav-center">
+                        <h3 class="nav-title">
+                            幸运大转盘
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-carousel" id="test10" style="margin-top: 55px;">
+                <div carousel-item="">
+                    <?php foreach ($sl as $k => $v): ?>
+                    <div><img src="<?=$v['thumb']?>" style="width:100%"></div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <div class="rotate-con-pan">
+                <div class="rotate-con-zhen"></div>
+            </div>
+            <div style="background: #f1f0f0; margin: 20px; border-radius: 6px; height: 140px; text-align: left;"
+                 class="tab-panel">
+                <div style="padding: 10px; color: red; font-size: 16px;">中奖播报</div>
+                <div style="padding: 10px;">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <?php
+                            $prize = [
+                                '红包',
+                                '明星会员兑换卷',
+                                '网红会员兑换卷',
+                                '主播会员兑换卷',
+                                '任务次数8次',
+                                '任务次数5次',
+                                '任务次数2次',
+                                '红包',
+                            ];
+                            $p_1 = $prize[rand(0,7)];
+                            $p_2 = $prize[rand(0,7)];
+                            $p_3 = $prize[rand(0,7)];
+                            $p_4 = $prize[rand(0,7)];
+                            $p_5 = $prize[rand(0,7)];
+                            $p_6 = $prize[rand(0,7)];
+                            $p_7 = $prize[rand(0,7)];
+                            $p_8 = $prize[rand(0,7)];
+
+                            ?>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_1?></span>
+                            </div>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_2?></span>
+                            </div>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_3?></span>
+                            </div>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_4?></span>
+                            </div>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_5?></span>
+                            </div>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_6?></span>
+                            </div>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_7?></span>
+                            </div>
+                            <div class="swiper-slide">
+                                1<?=rand(3,9)?><?=rand(3,9)?>****<?=rand(000,9999)?> 抽中了&nbsp;&nbsp;<span style="color: red; font-weight: bold;"><?=$p_8?></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="background: #f1f0f0; margin: 20px; border-radius: 6px; height: 140px; text-align: left;"
+                 class="tab-panel">
+                <div style="padding: 10px; color: red; font-size: 16px;">抽奖说明</div>
+                <div style="padding: 10px;">
+                    {$info["remark"]}
+                </div>
+            </div>
+            <include file="Public:footers"/>
+        </div>
+    </body>
+    <script type="text/javascript" src="/Public/statics/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/Public/statics/js/jQueryRotate.js"></script>
+    <script src="/Public/layui/layui.js" charset="utf-8"></script>
+    <script src="/Public/js/swiper.min.js" charset="utf-8"></script>
+    <script>
+        layui.use('layer', function(){
+            var layer = layui.layer;
+        });
+        var swiper = new Swiper('.swiper-container', {
+            slidesPerView :'auto',
+            direction: 'vertical',
+            // height: 300, //你的slide高度
+            autoplay: true,
+        });
+        layui.use(['carousel', 'form'], function () {
+            var carousel = layui.carousel
+                , form = layui.form;
+            //图片轮播
+            carousel.render({
+                elem: '#test10'
+                , width: '100%'
+                , height: '140px'
+                , interval: 5000
+            });
+        });
+        $(function () {
+            $(".rotate-con-zhen").rotate({
+                bind: {
+                    click: function () {
+                        var that = this;
+                        $.ajax({
+                            url: '/index.php/Home/Wheel/addReward',
+                            type: 'GET',
+                            data: {},
+                            cache: false,
+                            dataType: "json",
+                            success: function (data) {
+                                //   console.log("data-->",data);
+                                if (data.code == -1) {
+                                    layer.msg(data.txt);
+                                    return;
+                                }
+                                var a = "";
+                                if (Number(data.order) > 0) {
+                                    a = runzp(data.order);
+                                } else {
+                                    var noArr = [3, 6, 9];
+                                    var index = randomnum(0, 2);
+                                    a = runzp(noArr[index]);
+                                }
+                                $(that).rotate({
+                                    duration: 3000,               //转动时间
+                                    angle: 0,                    //起始角度
+                                    animateTo: 1440 + a.angle,      //结束的角度
+                                    easing: $.easing.easeOutSine,//动画效果，需加载jquery.easing.min.js
+                                    callback: function () {
+                                        if (data.order > 0 && data.type == 1) {
+                                            layer.msg("恭喜你中奖了，" + data.name + ",系统已将次数奖励派送");
+                                        }
+                                        if (data.order > 0 && data.type == 0) {
+                                            layer.msg("恭喜你中奖了，" + data.name + ",请联系客服人员领奖");
+                                        }
+                                        if (data.order == -1) {
+                                            layer.msg("再接再厉,中奖就在下一次");
+                                        }
+                                    }
+                                });
+                            },
+                        })
+                    }
+                }
+            });
+        });
+
+
+        function randomnum(smin, smax) {
+            var Range = smax - smin;
+            var Rand = Math.random();
+            return (smin + Math.round(Rand * Range));
+        }
+
+        function runzp(rate_order) {
+            let order = rate_order;
+            const rate = [
+                {
+                    order: "1",
+                    angle: [345, 385]
+                },
+                {
+                    order: "2",
+                    angle: [16, 56]
+                },
+
+                {
+                    order: "3",
+                    angle: [57, 97]
+                },
+                {
+                    order: "4",
+                    angle: [98, 138]
+                },
+
+                {
+                    order: "5",
+                    angle: [139, 179]
+                },
+                {
+                    order: "6",
+                    angle: [180, 220]
+                },
+                {
+                    order: "7",
+                    angle: [221, 261]
+                },
+                {
+                    order: "8",
+                    angle: [262, 302]
+                },
+                {
+                    order: "9",
+                    angle: [303, 344]
+                }
+
+            ]
+            let angle0 = [];
+            for (let x = 0; x < rate.length; x++) {
+                if (rate[x].order == order) {
+                    angle0 = rate[x].angle;
+                }
+            }
+            var r0 = randomnum(angle0[0], angle0[1]);
+            angle = r0;
+
+
+            var myreturn = new Object;
+
+            myreturn.angle = angle;
+            myreturn.message = "111";
+            myreturn.prize = "222";
+            return myreturn;
+        }
+
+    </script>
+</html>

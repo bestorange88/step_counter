@@ -1,0 +1,243 @@
+{extend name="common/layout"}
+{block name="title"}绿步盈途招募{/block}
+{block name="style"}
+<style>
+/* 全局样式 */
+body.invite-page {
+    font-family: Arial, sans-serif; /* 字体家族 */
+    background-color: #F2F8E6; /* 浅绿色背景 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 使页面至少占满一个视口高度 */
+}
+
+/* 主模块 */
+.main-module {
+    background-image: url('/static/index/img/beijing.png'); /* 背景图像 */
+    background-size: cover; /* 背景图像覆盖 */
+    background-position: center; /* 背景图像居中 */
+    padding: 20px; /* 内边距 */
+    border-radius: 12px; /* 圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  
+    width: calc(100% - 0px); /* 宽度为100%减去左右各20px */
+    color: #333333; /* 文字颜色 */
+    flex: 1; /* 使主模块在可用空间中扩展 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 垂直居中 */
+}
+
+/* 页眉和页脚 */
+header, footer {
+    background-color: #ffffff; /* 背景颜色 */
+    padding: 10px 20px; /* 内边距 */
+    text-align: center; /* 文字居中 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+}
+
+header {
+    border-bottom: 1px solid #ddd; /* 底部边框 */
+}
+
+footer {
+    border-top: 1px solid #ddd; /* 顶部边框 */
+}
+
+/* 卡片头部 */
+.invite-card-header {
+    border-bottom: 1px solid #ddd; /* 底部边框 */
+    padding-bottom: 10px; /* 内边距 */
+    margin-bottom: 20px; /* 底部外边距 */
+}
+
+.invite-card-title {
+    font-size: 1.5rem; /* 字体大小 */
+    font-weight: bold; /* 加粗字体 */
+}
+
+/* 表单组 */
+.invite-form-group {
+    margin-bottom: 1rem; /* 底部外边距 */
+}
+
+.invite-form-label {
+    font-size: 1rem; /* 字体大小 */
+    margin-bottom: 0.5rem; /* 底部外边距 */
+    display: block; /* 块级元素 */
+}
+
+.invite-form-control {
+    width: calc(100% - 108px); /* 宽度，减去按钮的宽度和间距 */
+    padding: 0.75rem; /* 内边距 */
+    font-size: 1rem; /* 字体大小 */
+    color: #495057; /* 文字颜色 */
+    background-color: #fff; /* 背景色 */
+    border: 1px solid #ced4da; /* 边框 */
+    border-radius: 0.25rem; /* 圆角 */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); /* 内阴影 */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* 过渡效果 */
+}
+
+.invite-form-control:focus {
+    border-color: #80bdff; /* 焦点边框颜色 */
+    outline: 0; /* 去掉默认轮廓 */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* 焦点阴影 */
+}
+
+/* 输入组 */
+.invite-input-group {
+    display: flex; /* 弹性布局 */
+    align-items: center; /* 垂直居中 */
+}
+
+.invite-input-group-append {
+    margin-left: 8px; /* 左边距 */
+}
+
+.invite-btn {
+    display: inline-block; /* 内联块级元素 */
+    font-weight: 400; /* 字体粗细 */
+    text-align: center; /* 居中对齐 */
+    white-space: nowrap; /* 不换行 */
+    vertical-align: middle; /* 垂直对齐 */
+    user-select: none; /* 禁止选择 */
+    border: 1px solid transparent; /* 边框 */
+    padding: 0.75rem 1.25rem; /* 内边距 */
+    font-size: 1rem; /* 字体大小 */
+    line-height: 1.5; /* 行高 */
+    border-radius: 0.25rem; /* 圆角 */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* 过渡效果 */
+}
+
+.invite-btn-secondary {
+    color: #fff; /* 文字颜色 */
+    background-color: #008C8C; /* 按钮背景色 */
+    border-color: #008C8C; /* 按钮边框色 */
+}
+
+.invite-btn-secondary:hover {
+    color: #fff; /* 文字颜色 */
+    background-color: #006666; /* 悬停背景色 */
+    border-color: #0056b3; /* 悬停边框色 */
+}
+
+.invite-btn-sm {
+    padding: 0.5rem 0.75rem; /* 内边距 */
+    font-size: 0.875rem; /* 字体大小 */
+    line-height: 1.5; /* 行高 */
+    border-radius: 0.2rem; /* 圆角 */
+}
+
+/* 卡片底部 */
+.invite-card-footer {
+    border-top: 1px solid #ddd; /* 顶部边框 */
+    padding-top: 10px; /* 内边距 */
+    margin-top: 20px; /* 顶部外边距 */
+    text-align: center; /* 居中对齐 */
+}
+
+.invite-text-muted {
+    color: #6c757d; /* 文字颜色 */
+}
+
+#invite-qrcode {
+    margin-top: 20px; /* 顶部外边距 */
+    text-align: center; /* 居中对齐 */
+}
+
+</style>
+{/block}
+{block name="content"}
+<header>
+    <h1>绿步盈途招募</h1>
+</header>
+<div class="main-module">
+    <div class="invite-card-header">
+        <div class="invite-card-title">分享二维码</div>
+    </div>
+    <div class="invite-card-body">
+        <div class="invite-form-group">
+            <label class="invite-form-label">邀请码</label>
+            <input type="text" class="invite-form-control" value="{$Think.config.hello.inviter.anonymous ? $Think.session.user.account.uid : $Think.session.user.account.username}" readonly />
+        </div>
+        <div class="invite-form-group">
+            <label class="invite-form-label">推广链接</label>
+            <div class="invite-input-group">
+                <input type="text" class="invite-form-control" value="{$Request.domain}/signup.html?i={$Think.config.hello.inviter.anonymous ? $Think.session.user.account.uid : $Think.session.user.account.username}" readonly />
+                <div class="invite-input-group-append">
+                    <button type="button" id="invite-btn-copy" class="invite-btn invite-btn-secondary invite-btn-sm">复制链接</button>
+                </div>
+            </div>
+        </div>
+        <div id="invite-qrcode"></div>
+    </div>
+    <div class="invite-card-footer">
+        <div class="invite-text-muted">长按二维码数秒，选择保存到手机或相册</div>
+        <div class="invite-text-muted">也可以直接手机截屏</div>
+    </div>
+</div>
+<footer>
+    <p>&copy; 2025 绿步盈途</p>
+</footer>
+{/block}
+
+{block name="script"}
+<script>
+var domain = '{$Request.domain}', username = '{$Think.config.hello.inviter.anonymous ? $Think.session.user.account.uid : $Think.session.user.account.username}';
+var input = domain + '/signup.html?i=' + username;
+var copy = function() {
+    var el = document.createElement('textarea');
+    el.value = input;
+    // Prevent keyboard from showing on mobile
+    el.setAttribute('readonly', '');
+
+    el.style.contain = 'strict';
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    el.style.fontSize = '12pt'; // Prevent zooming on iOS
+
+    var selection = window.getSelection();
+    var originalRange = false;
+    if (selection.rangeCount > 0) {
+        originalRange = selection.getRangeAt(0);
+    }
+    document.body.appendChild(el);
+    el.select();
+
+    // Explicit selection workaround for iOS
+    el.selectionStart = 0;
+    el.selectionEnd = input.length;
+
+    var success = false;
+    try {
+        success = document.execCommand('copy');
+    } catch (err) {
+        toast('很抱歉、您的手机不支持复制功能！请手动点击推广链接后全选复制！');
+    }
+
+    document.body.removeChild(el);
+
+    if (originalRange) {
+        selection.removeAllRanges();
+        selection.addRange(originalRange);
+    }
+
+    return success;
+};
+require(['jquery', 'qrcode'], function($, qrcode) {
+    new QRCode(document.getElementById("invite-qrcode"), domain + '/signup.html?i=' + username);
+    // 复制链接
+    $('#invite-btn-copy').on('click', function() {
+        var bool = copy();
+        if (bool) {
+            toast('复制成功！');
+        } else {
+            toast('很抱歉、您的手机不支持复制功能！请手动点击推广链接后全选复制！');
+        }
+    });
+});
+</script>
+{/block}

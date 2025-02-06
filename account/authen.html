@@ -1,0 +1,346 @@
+{extend name="common/layout"}
+{block name="title"}实名认证{/block}
+{block name="style"}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F2F8E6;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .authen-container {
+        background-color: #FFFFFF;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 600px;
+    }
+
+    .authen-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #333333;
+        margin-bottom: 1rem;
+    }
+
+    .authen-form-group {
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .authen-form-label {
+        font-size: 1rem;
+        color: #333333;
+        margin-bottom: 0.5rem;
+        flex: 1;
+    }
+
+    .authen-form-control {
+        flex: 2;
+        padding: 0.75rem;
+        font-size: 1rem;
+        color: #495057;
+        background-color: #fff;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075);
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .authen-form-control:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+
+    .authen-btn {
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: 0.75rem 1.25rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        color: #fff;
+        background-color: #008C8C;
+        border-color: #008C8C;
+        width: 100%;
+    }
+
+    .authen-btn:hover {
+        background-color: #006666;
+        border-color: #0056b3;
+    }
+
+    .authen-btn:disabled {
+        opacity: 0.65;
+    }
+
+    .authen-alert {
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+    }
+
+    .authen-alert-info {
+        color: #0c5460;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+    }
+
+    .authen-alert-danger {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+    }
+
+    .authen-custom-file {
+        position: relative;
+        display: inline-block;
+        height: 2.5rem;
+        margin-left: 1rem;
+    }
+
+    .authen-custom-file-input {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    .authen-custom-file-label {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        color: #fff;
+        background-color: #008C8C;
+        border: 1px solid #008C8C;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    }
+
+    .authen-custom-file-label:hover {
+        background-color: #006666;
+        border-color: #0056b3;
+    }
+
+    .authen-image-preview {
+        width: 70%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+    .authen-btn-container {
+        text-align: center;
+        margin-top: 1rem;
+        padding-bottom: 60px;
+    }
+
+    .authen-form-group img {
+        order: 1;
+    }
+
+    .authen-form-group div {
+        order: 2;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+{/block}
+
+{block name="content"}
+    <div class="authen-container">
+        <div class="authen-title">实名认证</div>
+        <div class="authen-alert authen-alert-info">
+            当前认证状态: <span id="authen-status"></span>
+        </div>
+
+        <form id="authen-form" method="post" enctype="multipart/form-data" action="/authen/submit">
+             <input type="hidden" name="uid" value="{$uid}">
+            <div class="authen-form-group">
+                <label class="authen-form-label">个性昵称</label>
+                <input type="text" class="authen-form-control" name="nickname" placeholder="个性昵称" maxlength="10" required value="{$user.account.nickname}" />
+            </div>
+            <div class="authen-form-group">
+                <label class="authen-form-label">真实姓名</label>
+                <input type="text" class="authen-form-control" name="name" placeholder="真实姓名" required value="{$user.account.name}" />
+            </div>
+            <div class="authen-form-group">
+                <label class="authen-form-label">身份证号码</label>
+                <input type="text" class="authen-form-control" name="id_card" placeholder="身份证号码" value="{$user.account.id_card}" required />
+            </div>
+            <div class="authen-form-group">
+                <img id="front-preview" class="authen-image-preview"  src="{if $user.account.front_image}{$user.account.front_image}{else}/static/index/img/sfzzm.png{/if}" alt="身份证正面预览"/>
+                <div>
+                    <label class="authen-form-label">身份证正面</label>
+                    <div class="authen-custom-file">
+                        <input type="file" accept="image/*" class="authen-custom-file-input" name="front_image" id="front" value="{$user.account.front_image}" required />
+                        <label class="authen-custom-file-label" for="front">上传</label>
+                    </div>
+                </div>
+            </div>
+            <div class="authen-form-group">
+                <img id="back-preview" class="authen-image-preview"  src="{if $user.account.back_image}{$user.account.back_image}{else}/static/index/img/sfzbm.png{/if}" alt="身份证反面预览"/>
+                <div>
+                    <label class="authen-form-label">身份证反面</label>
+                    <div class="authen-custom-file">
+                        <input type="file" accept="image/*" class="authen-custom-file-input" name="back_image" id="back" value="{$user.account.back_image}" required />
+                        <label class="authen-custom-file-label" for="back">上传</label>
+                    </div>
+                </div>
+            </div>
+            <div class="authen-btn-container">
+                <button type="submit" class="authen-btn" id="submit-btn">提交认证</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 弹窗模态框 -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modal-message"></p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function readURL(input, previewId) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById(previewId).src = e.target.result;
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            document.getElementById('front').addEventListener('change', function() {
+                readURL(this, 'front-preview');
+            });
+
+            document.getElementById('back').addEventListener('change', function() {
+                readURL(this, 'back-preview');
+            });
+
+            // 根据认证状态显示相应的文字
+            var authenStatus = {$user.account.authen};
+            var statusText = "";
+            switch(authenStatus) {
+                case 0:
+                    statusText = "未实名";
+                    break;
+                case 1:
+                    statusText = "已实名";
+                    break;
+                case 2:
+                    statusText = "审核中";
+                    break;
+                case 3:
+                    statusText = "已拒绝";
+                    break;
+                default:
+                    statusText = "未知状态";
+            }
+            document.getElementById('authen-status').innerText = statusText;
+
+            // 如果认证状态是“审核中”或“已实名”，禁用上传和提交按钮，设置输入框为只读
+            if (authenStatus === 1 || authenStatus === 2) {
+                document.getElementById('front').disabled = true;
+                document.getElementById('back').disabled = true;
+                document.getElementById('submit-btn').disabled = true;
+                document.querySelector('input[name="name"]').readOnly = true;
+                document.querySelector('input[name="id_card"]').readOnly = true;
+            }
+
+            // 处理表单提交
+            document.getElementById('authen-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // 阻止默认表单提交
+
+                // 模拟表单提交后的响应处理
+                var modal = document.getElementById("myModal");
+                var modalMessage = document.getElementById("modal-message");
+
+                // 使用 Fetch API 提交表单数据
+                var formData = new FormData(this);
+                fetch('/authen/submit', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.code === 200) {
+                        modalMessage.innerText = "恭喜您，操作成功！";
+                        document.getElementById('authen-status').innerText = "审核中"; // 更新认证状态
+                    } else {
+                        modalMessage.innerText = data.message;
+                    }
+                    modal.style.display = "block"; // 显示弹窗
+                })
+                .catch(error => {
+                    modalMessage.innerText = "提交失败，请重试！";
+                    modal.style.display = "block";
+                });
+
+                // 关闭按钮点击事件
+                var span = document.getElementsByClassName("close")[0];
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+
+                // 点击弹窗外部关闭弹窗
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            });
+        });
+    </script>
+{/block}

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>寻找团队</title>
+    <link rel="stylesheet" href="/static/index/css/style.css"> <!-- 假定有一个通用的CSS文件 -->
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>寻找团队</h1>
+        </header>
+        <main>
+            <form action="/team/search" method="get">
+                <label for="search-key">搜索团队：</label>
+                <input type="text" id="search-key" name="search-key" placeholder="输入团队名称或关键字" required>
+                <button type="submit">搜索</button>
+            </form>
+            <!-- 这里可以显示搜索结果 -->
+        </main>
+    </div>
+</body>
+</html>

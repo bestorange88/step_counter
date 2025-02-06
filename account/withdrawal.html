@@ -1,0 +1,199 @@
+{extend name="common/layout"}
+{block name="title"}提现{/block}
+{block name="style"}
+<style>
+/* 设置body的全局样式 */
+body {
+    font-family: Arial, sans-serif; /* 字体样式 */
+    background-color: #F2F8E6; /* 背景颜色 */
+ 
+}
+
+/* 容器样式 */
+.container {
+    width: calc(100% - 60px); /* 宽度减去60px的边距 */
+    max-width: 800px; /* 最大宽度600px */
+    margin: 30px auto 80px auto; /* 上和下边距 */
+    background-color: #FFFFFF; /* 背景颜色 */
+    border-radius: 12px; /* 边框圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    padding: 20px; /* 内边距 */
+    box-sizing: border-box; /* 包含内边距和边框在内的盒子模型 */
+}
+
+/* 卡片样式 */
+.card {
+    background-color: #FFFFFF; /* 背景颜色 */
+    border-radius: 12px; /* 边框圆角 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    padding: 20px; /* 内边距 */
+    margin: 20px 0; /* 上下边距 */
+}
+
+/* 卡片标题样式 */
+.card-title {
+    font-size: 1.25rem; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    color: #333333; /* 字体颜色 */
+    margin-bottom: 1rem; /* 底部边距 */
+}
+
+/* 卡片标题中的次要文本样式 */
+.card-title .text-muted {
+    font-size: 0.9rem; /* 字体大小 */
+    color: #666666; /* 字体颜色 */
+}
+
+/* 表单组样式 */
+.form-group {
+    margin-bottom: 1rem; /* 底部边距 */
+}
+
+/* 表单标签样式 */
+.form-label {
+    font-size: 0.9rem; /* 字体大小 */
+    color: #333333; /* 字体颜色 */
+    margin-bottom: 0.5rem; /* 底部边距 */
+    display: block; /* 块级元素 */
+}
+
+/* 表单控件样式 */
+.form-control {
+    width: 100%; /* 宽度100% */
+    padding: 0.5rem; /* 内边距 */
+    font-size: 1rem; /* 字体大小 */
+    color: #495057; /* 字体颜色 */
+    background-color: #fff; /* 背景颜色 */
+    background-clip: padding-box; /* 背景裁剪 */
+    border: 1px solid #ced4da; /* 边框样式 */
+    border-radius: 0.25rem; /* 边框圆角 */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.075); /* 内部阴影 */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* 过渡效果 */
+}
+
+/* 表单控件聚焦样式 */
+.form-control:focus {
+    border-color: #008C8C; /* 聚焦边框颜色 */
+    outline: 0; /* 去掉外边框 */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* 聚焦阴影效果 */
+}
+
+/* 按钮样式 */
+.btn {
+    display: inline-block; /* 行内块级元素 */
+    font-weight: 400; /* 字体粗细 */
+    text-align: center; /* 文本居中 */
+    white-space: nowrap; /* 文本不换行 */
+    vertical-align: middle; /* 垂直对齐 */
+    user-select: none; /* 禁止用户选择 */
+    border: 1px solid transparent; /* 边框样式 */
+    padding: 0.5rem 1rem; /* 内边距 */
+    font-size: 1rem; /* 字体大小 */
+    line-height: 1.5; /* 行高 */
+    border-radius: 0.25rem; /* 边框圆角 */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; /* 过渡效果 */
+}
+
+/* 主按钮样式 */
+.btn-primary {
+    color: #fff; /* 字体颜色 */
+    background-color: #008C8C; /* 背景颜色 */
+    border-color: #007bff; /* 边框颜色 */
+}
+
+/* 主按钮悬停样式 */
+.btn-primary:hover {
+    color: #fff; /* 字体颜色 */
+    background-color: #0056b3; /* 背景颜色 */
+    border-color: #004085; /* 边框颜色 */
+}
+
+/* 次要文本样式 */
+.text-muted {
+    font-size: 14px; /* 字体大小 */
+    color: #6c757d !important; /* 字体颜色 */
+}
+</style>
+{/block}
+
+{block name="content"}
+<div class="container">
+    <div class="card">
+        <div class="card-title">
+            <div class="text-black mb-1">提现</div>
+            <div class="text-muted" style="font-size: .9rem;">请输入提现信息</div>
+        </div>
+        <form id="withdraw-form" method="post" action="/api/withdraw/initiateWithdraw">
+            <div class="form-group">
+                <label class="form-label">提现流水号</label>
+                <input type="text" class="form-control" name="out_trade_no" value="{$out_trade_no}" readonly>
+            </div>
+            <div class="form-group">
+                <label class="form-label">提现金额</label>
+                <input type="number" class="form-control" name="money" placeholder="输入提现金额" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">银行卡号</label>
+                <input type="text" class="form-control" name="cardnumber" placeholder="输入银行卡号" value="{$account.cardnumber??''}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">银行名称</label>
+                <input type="text" class="form-control" name="bankname" placeholder="输入银行名称" value="{$account.bankname??''}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">开户行地址</label>
+                <input type="text" class="form-control" name="subbranch" placeholder="输入开户行地址" value="{$account.subbranch??''}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label">账户姓名</label>
+                <input type="text" class="form-control" name="accountname" placeholder="输入账户姓名" value="{$account.accountname??''}" required>
+            </div>
+            <div class="form-group mb-0">
+                <label class="form-label">备注</label>
+                <textarea class="form-control" name="remark" placeholder="可选填" rows="3"></textarea>
+            </div>
+            <div class="card-footer text-right">
+                <button type="submit" class="btn btn-primary">提交提现</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 弹窗 -->
+<div id="success-modal" style="display: none;">
+    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+        <p>已提交提款申请，请稍后</p>
+        <button onclick="closeModal()">关闭</button>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script type="text/javascript">
+document.getElementById('withdraw-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var formData = new FormData(this);
+
+    fetch('/api/withdraw/initiateWithdraw', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.code === 200) {
+            document.getElementById('success-modal').style.display = 'block';
+        } else {
+            alert('提交失败：' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('提交失败，请稍后再试');
+    });
+});
+
+function closeModal() {
+    document.getElementById('success-modal').style.display = 'none';
+}
+</script>
+{/block}
