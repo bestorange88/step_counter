@@ -1,0 +1,211 @@
+/* 全局设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif, "PingFang SC", "Microsoft YaHei", sans-serif; /* 字体适配中英文 */
+    background-color: #f4f4f9; /* 背景颜色 */
+    box-sizing: border-box;
+    overflow-x: hidden; /* 禁止横向滚动 */
+}
+
+/* 页面背景 */
+.login-bg {
+    background-image: url('/static/index/img/beijing.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+/* 主容器 */
+.custom-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* 第一模块：Logo 和文本 */
+.custom-center {
+    text-align: center;
+}
+
+.custom-logo {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.custom-title {
+    font-size: 2rem; /* 主标题大小 */
+    font-weight: bold; /* 粗体文字 */
+    color: #ffffff; /* 设置文字颜色为白色 */
+    text-align: center; /* 居中对齐 */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* 添加柔和的黑色阴影，提升可读性 */
+    margin-bottom: 10px; /* 底部间距 */
+}
+
+.custom-subtitle {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+/* 表单容器 */
+.card.forgot {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 表单内容 */
+.custom-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 文本标签 */
+.form-label {
+    font-size: 1.125rem;
+    font-weight: bold;
+    color: #008C8C;
+    margin-bottom: 5px;
+}
+
+/* 输入框基础样式 */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    color: #333;
+    background-color: #ffffff;/* 米黄色背景 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding-right: 110px; /* 为右侧按钮或验证码图片留出空间 */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* 输入框聚焦样式 */
+.form-control:focus {
+    outline: none;
+    border-color: #007777; /* 聚焦时边框颜色 */
+    background-color: rgba(255, 255, 204, 0.9); /* 聚焦时背景颜色 */
+    box-shadow: 0 0 5px rgba(19, 110, 9, 0.5); /* 添加聚焦阴影 */
+}
+
+/* 验证码输入框 */
+.captcha-input {
+    padding-right: 110px; /* 为验证码图片或按钮留出空间 */
+}
+
+/* 输入框容器 */
+.form-group .relative {
+    position: relative; /* 确保按钮和验证码图片相对于容器定位 */
+}
+
+/* 图形验证码容器 */
+.captcha-touch {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%; /* 与输入框高度一致 */
+    border-left: 1px solid #ddd; /* 添加与输入框一致的左边框 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 5px 5px 0; /* 与输入框右侧保持圆角一致 */
+    background-color: #FFFACD; /* 保持背景色与输入框一致 */
+}
+
+/* 图形验证码图片 */
+.captcha {
+    height: 100%; /* 图像高度适配容器 */
+    border-radius: 0; /* 移除自身的圆角，继承容器的样式 */
+}
+
+/* 手机验证码按钮 */
+.get-captcha {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%; /* 按钮高度与输入框一致 */
+    padding: 0 15px; /* 按钮内边距调整 */
+    background-color: #008C8C; /* 按钮主题绿色 */
+    color: white; /* 按钮文字颜色 */
+    font-size: 0.875rem; /* 字体大小 */
+    border: none; /* 移除按钮的默认边框 */
+    border-left: 1px solid #ddd; /* 添加与输入框一致的左边框 */
+    border-radius: 0 5px 5px 0; /* 与输入框右侧保持圆角一致 */
+    cursor: pointer; /* 鼠标样式 */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 10; /* 确保按钮位于其他元素上方 */
+}
+
+/* 获取验证码按钮悬停效果 */
+.get-captcha:hover {
+    background-color: #007777; /* 悬停时颜色变深 */
+}
+
+.get-captcha:active {
+    background-color: #0c4b06; /* 按下时颜色更深 */
+    transform: translateY(1px); /* 微小的视觉反馈 */
+}
+/* 表单底部容器 */
+.form-footer {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 100%; /* 可选，确保容器高度合适 */
+    margin-top: 1rem; /* 与上方内容的间距 */
+}
+
+/* 下一步或提交按钮 */
+.custom-button {
+    width: 80%; /* 按钮宽度 */
+    padding: 12px; /* 按钮内边距 */
+    background-color: #008C8C; /* 按钮背景颜色 */
+    color: white; /* 按钮文字颜色 */
+    font-size: 1rem; /* 按钮文字大小 */
+    font-weight: bold; /* 字体加粗 */
+    text-align: center; /* 文本居中 */
+    border: none; /* 移除边框 */
+    border-radius: 15px 50px 15px 50px; /* 按钮圆角 */
+    cursor: pointer; /* 鼠标样式 */
+    transition: all 0.3s ease; /* 动画效果 */
+}
+
+/* 按钮悬停效果 */
+.custom-button:hover {
+    background-color: #007777; /* 鼠标悬停时颜色 */
+    transform: translateY(-2px); /* 提升视觉效果 */
+}
+
+/* 按钮按下效果 */
+.custom-button:active {
+    background-color: #005F5F; /* 按下时颜色更深 */
+    transform: translateY(2px); /* 轻微下压效果 */
+}
+/* 页脚 */
+.custom-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #555;
+}
+
+.custom-footer a {
+    color: #4299e1;
+    text-decoration: none;
+}

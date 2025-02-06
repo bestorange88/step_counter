@@ -1,0 +1,84 @@
+/* 全局设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif, "PingFang SC", "Microsoft YaHei", sans-serif; /* 字体适配中英文 */
+    background-color: #f4f4f9; /* 背景颜色 */
+    box-sizing: border-box;
+    overflow-x: hidden; /* 禁止横向滚动 */
+}
+
+/* 页面背景 */
+.about-bg {
+    background-image: url('/static/index/img/beijing.png');
+    background-size: 100% 100%; /* 背景图拉伸填满整个页面 */
+    background-repeat: no-repeat; /* 防止背景重复 */
+    background-position: center; /* 背景居中 */
+    min-height: 100vh; /* 占满整个视口高度 */
+    display: flex;
+    justify-content: center; /* 内容水平居中 */
+    align-items: flex-start; /* 内容从顶部排列 */
+    padding: 30px; /* 顶部留白 */
+    overflow: hidden; /* 防止背景溢出 */
+}
+
+/* 主容器 */
+.custom-container {
+    width: 100%;
+    max-width: 500px; /* 设置最大宽度 */
+    display: flex;
+    flex-direction: column; /* 模块从上到下排列 */
+    gap: 20px; /* 模块间距 */
+    box-sizing: border-box;
+}
+
+/* 第一模块：Logo 和文本 */
+.custom-center {
+    text-align: center;
+}
+
+/* Logo 图标样式 */
+.custom-logo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 0px; /* Logo 与下面模块的间距 */
+    object-fit: cover;
+}
+
+/* 第二模块背景框 */
+.card.about {
+    background: rgba(255, 255, 255, 0.5); /* 半透明背景 */
+    backdrop-filter: blur(10px); /* 磨砂效果 */
+    -webkit-backdrop-filter: blur(10px); /* Safari 支持 */
+    border-radius: 10px; /* 圆角 */
+    padding: 20px; /* 内边距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 模块之间的间距 */
+    box-sizing: border-box;
+}
+
+/* 第二模块内容 */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 关于我们标题 */
+.about-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #008C8C; /* 主色调 */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* 关于我们文本 */
+.about-text {
+    font-size: 1rem;
+    color: #333; /* 默认文本颜色 */
+    line-height: 1.6; /* 行高 */
+    text-align: justify; /* 两端对齐 */
+}

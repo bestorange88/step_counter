@@ -1,0 +1,182 @@
+
+    /* 全局样式 */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #F2F8E6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .personal-info {
+        width: 360px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .avatar-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .avatar {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid #ffffff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-right: 12px;
+    }
+
+    .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    h2 {
+        font-size: 18px;
+        font-weight: bold;
+        color: #333333;
+        margin: 0;
+    }
+
+    p {
+        font-size: 14px;
+        color: #666666;
+        margin: 4px 0 0;
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 12px;
+        color: #777777;
+    }
+
+    .fa-qrcode {
+        font-size: 24px;
+        color: #777777;
+        margin-top: 16px;
+        cursor: pointer;
+    }
+
+    #qrcode-modal {
+        display: none;
+        position: absolute;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    #qrcode-modal img {
+        width: 120px;
+        height: 120px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .steps-container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .steps-container i {
+        font-size: 18px;
+        color: #FFC107;
+        margin-right: 8px;
+    }
+
+    .steps-container div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .steps-container .value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333333;
+    }
+
+    .steps-container .label {
+        font-size: 12px;
+        color: #777777;
+    }
+</style>
+
+@media (max-width: 360px) {
+    .icon-group {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    }
+    .icon-news {
+    display: none !important;
+    }
+    }
+    .bg-signed {
+    background-color: #00ff00; /* 绿色背景表示已签到 */
+    color: #ffffff; /* 白色文字 */
+    }
+    .bg-highlight {
+    background-color: #ffcc00; /* 黄色背景高亮显示当天未签到 */
+    color: #000000; /* 黑色文字 */
+    }
+    .bg-gray-disabled {
+    background-color: #d3d3d3; /* 灰色背景表示过去的日期且未签到 */
+    color: #a9a9a9; /* 较浅的灰色文字 */
+    }
+    .sign-in-button {
+    /* 签到按钮的样式 */
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 2px 6px;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    .font-bold {
+        font-weight: bold; /* 加粗字体 */
+    }
+    .text-gray-400 {
+        color: #6c757d; /* 较浅的灰色，用于过去的日期图标 */
+    }
+                
+/* 功能模块列表 */
+.space-y-4 a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.space-y-4 a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.space-y-4 i {
+    font-size: 20px;
+    color: #6c757d; /* 图标默认灰色 */
+}
+
+.space-y-4 span {
+    font-size: 14px;
+    color: #333;
+}

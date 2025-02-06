@@ -1,0 +1,299 @@
+/* 全局设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif, "PingFang SC", "Microsoft YaHei", sans-serif; /* 字体适配中英文 */
+    background-color: #f4f4f9; /* 背景颜色 */
+    box-sizing: border-box;
+    overflow-x: hidden; /* 禁止横向滚动 */
+}
+/* 全局容器限制 */
+.container {
+    width: 100%;
+    max-width: 500px; /* 限制页面内容宽度，适配小屏幕 */
+    margin: 0 auto; /* 居中显示 */
+    padding: 0 20px; /* 左右留白 */
+    box-sizing: border-box; /* 包含内边距和边框 */
+}
+
+/* 页面标题 */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: bold;
+}
+/* 页面背景 */
+.login-bg {
+    background-image: url('/static/index/img/beijing.png');
+    background-size: 100% 100%; /* 背景图拉伸填满整个页面 */
+    background-repeat: no-repeat; /* 防止背景重复 */
+    background-position: center; /* 背景居中 */
+    min-height: 100vh; /* 占满整个视口高度 */
+    display: flex;
+    justify-content: center; /* 内容水平居中 */
+    align-items: flex-start; /* 内容从顶部排列 */
+    padding: 30px 30px; /* 顶部留白50px，左右留白30px */
+    overflow: hidden; /* 防止背景溢出 */
+}
+
+
+
+/* 主容器 */
+.custom-container {
+    width: 100%;
+    max-width: 500px; /* 设置最大宽度 */
+    display: flex;
+    flex-direction: column; /* 模块从上到下排列 */
+    gap: 20px; /* 模块间距 */
+    box-sizing: border-box;
+}
+
+/* 第一模块：Logo 和文本 */
+.custom-center {
+    text-align: center;
+}
+
+/* Logo 图标样式 */
+.custom-logo {
+    width: 280px; /* 设置宽度为 100px */
+    height: 280px; /* 设置高度为 100px */
+    margin-bottom: 0.0rem; /* Logo 与标题之间的间距 */
+    object-fit: cover; /* 确保图像按比例填充（如果源图像不是正方形） */
+}
+
+
+.custom-title {
+    font-size: 2rem; /* 主标题大小 */
+    font-weight: bold; /* 粗体文字 */
+    color: #ffffff; /* 设置文字颜色为白色 */
+    text-align: center; /* 居中对齐 */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* 添加柔和的黑色阴影，提升可读性 */
+    margin-bottom: 10px; /* 底部间距 */
+}
+
+.custom-subtitle {
+    font-size: 1rem; /* 副标题字体大小 */
+    color: #555;
+}
+
+/* 第二模块背景框 */
+.card.signin {
+    height: 380px;
+    background: rgba(255, 255, 255, 0.5); /* 半透明背景 */
+    backdrop-filter: blur(10px); /* 磨砂效果 */
+    -webkit-backdrop-filter: blur(10px); /* Safari 支持 */
+    border-radius: 10px; /* 圆角 */
+    padding: 20px; /* 内边距 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 模块之间的间距 */
+    box-sizing: border-box;
+}
+
+/* 第二模块内容 */
+.custom-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* 增加子元素之间的间距 */
+    font-family: Arial, sans-serif; /* 使用全局字体 */
+    color: #008C8C; /* 文本颜色 */
+}
+
+/* 文本标签美化 */
+.custom-card-body .form-label {
+    font-size: 1.125rem; /* 增大字体一个字号 */
+    color: #008C8C; /* 提升文本颜色对比度 */
+    font-weight: bold; /* 加粗字体 */
+    margin-bottom: 5px; /* 标签与输入框之间的间距增加为 5px */
+}
+
+/* 输入文本框 */
+.form-control {
+    width: 100%; /* 填充父容器宽度 */
+    padding: 12px; /* 内边距 */
+    font-size: 1.125rem; /* 增大输入框文本字体 */
+    color: #008C8C; /* 输入文本颜色 */
+    border: 1px solid #008C8C; /* 边框颜色 */
+    border-radius: 5px; /* 圆角 */
+    box-sizing: border-box; /* 确保宽度包含内边距和边框 */
+    margin-bottom: 15px; /* 输入框与下一部分的间距增加 */
+}
+
+
+
+/* 输入框聚焦样式 */
+.form-control:focus {
+    outline: none;
+    border-color: #008C8C; /* 聚焦时边框颜色变为主色调 */
+    box-shadow: 0 0 5px rgba(66, 153, 225, 0.5); /* 添加聚焦阴影 */
+}
+/* 父容器样式 */
+.form-footer {
+    display: flex;
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+    height: 100%; /* 确保子元素能够在垂直方向上居中 */
+}
+
+/* 登录按钮样式 */
+.custom-button {
+    display: inline-block;
+    width: 80%; /* 按钮宽度 */
+    padding: 15px 0; /* 按钮高度 */
+    font-size: 1.1rem; /* 字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    color: white; /* 字体颜色 */
+    text-align: center;
+    background-color: #008C8C; /* 按钮主色调 */
+    border: none; /* 无边框 */
+    border-radius: 15px 50px 15px 50px; /* 按钮圆角 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 按钮阴影 */
+    cursor: pointer; /* 鼠标样式 */
+    transition: all 0.3s ease; /* 动画效果 */
+    margin: 0 auto; /* 水平居中 */
+}
+
+/* 按钮悬停效果 */
+.custom-button:hover {
+    background-color: #007575; /* 悬停时稍微变深 */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 增强阴影 */
+    transform: translateY(-2px); /* 向上移动 */
+}
+
+/* 按钮按下效果 */
+.custom-button:active {
+    background-color: #005E5E; /* 按下时更深色 */
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15); /* 减弱阴影 */
+    transform: translateY(2px); /* 按下时向下移动 */
+}
+
+/* 三方登录容器样式 */
+.social-login {
+    position: absolute; /* 使用绝对定位 */
+    bottom: 3px; /* 与底部边框保留 3px 留白 */
+    right: 8px; /* 与右侧边框保留 3px 留白 */
+    display: flex;
+    flex-direction: row; /* 图标横向排列 */
+    gap: 5px; /* 图标之间的间距 */
+}
+
+/* 文本说明样式 */
+.social-login-text {
+    font-size: 0.8rem; /* 字体大小适配 */
+    color: #008C8C; /* 灰色字体 */
+    text-align: center; /* 居中对齐 */
+}
+
+/* 图标样式 */
+.social-login a {
+    display: inline-block;
+     bottom: 3px;
+    width: 36px; /* 图标宽度 */
+    height: 36px; /* 图标高度 */
+    border-radius: 50%; /* 圆形按钮 */
+    background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    display: flex;
+    justify-content: center; /* 图标水平居中 */
+    align-items: center; /* 图标垂直居中 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* 动画效果 */
+}
+
+/* 图标悬停效果 */
+.social-login a:hover {
+    transform: scale(1.1); /* 放大 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 增强阴影 */
+}
+
+/* 图标按下效果 */
+.social-login a:active {
+    transform: scale(0.9); /* 按下缩小 */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* 减弱阴影 */
+}
+
+.social-login img {
+    width: 20px; /* 图标大小 */
+    height: 20px;
+    display: block;
+    border-radius: 50%; /* 图标为圆形 */
+}
+
+/* 忘记密码链接样式 */
+.float-right.small {
+    color: #027373; /* 柔和的青绿色，匹配页面色调 */
+    font-size: 0.875rem; /* 小字体 */
+    font-weight: bold; /* 突出但不过于抢眼 */
+    text-decoration: underline; /* 默认显示下划线 */
+    transition: color 0.3s ease; /* 添加平滑过渡效果 */
+}
+
+/* 悬停效果 */
+.float-right.small:hover {
+    color: #005a5a; /* 悬停时颜色稍微加深 */
+    text-decoration: underline; /* 下划线保持 */
+}
+
+/* 按下效果 */
+.float-right.small:active {
+    color: #004040; /* 按下时进一步加深 */
+    text-decoration: underline; /* 下划线保持 */
+}
+/* 第三模块：底部提示 */
+.custom-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #555;
+}
+
+.custom-footer a {
+    color: #4299e1;
+    text-decoration: none;
+}
+/* 第三模块：页脚 */
+.custom-bfooter {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #008C8C; /* 柔和白色字体 */
+    margin-bottom: 8px; /* 与页面底边框的距离 50px */
+}
+
+.custom-bfooter a {
+    color: #008C8C; /* 文字颜色 */
+    text-decoration: underline; /* 始终显示下划线 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+}
+
+.custom-bfooter a:hover {
+    color: #005f5f; /* 鼠标悬停时改变颜色 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+}
+
+
+.custom-copyright {
+    font-size: 0.8rem;
+    color: #008C8C; /* 柔和白色字体 */
+    text-align: center;
+    margin-bottom: 5px; /* 确保整体底部间距一致 */
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    body {
+        padding: 0;
+        font-size: 0.875rem; /* 小屏幕字体适当缩小 */
+    }
+
+    .container {
+        padding: 0 15px; /* 更小的左右留白 */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 0.8rem; /* 超小屏幕进一步缩小字体 */
+    }
+
+    .container {
+        padding: 0 10px; /* 极小屏幕左右留白减少 */
+    }
+}

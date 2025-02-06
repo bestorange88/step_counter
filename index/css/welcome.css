@@ -1,0 +1,206 @@
+/* 全局设置 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background-color: #f4f4f9;
+    box-sizing: border-box;
+    overflow-x: hidden; /* 禁止横向滚动 */
+}
+
+/* 页面背景 */
+.welcome-bg {
+    background-image: url('/static/index/img/beijing.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 30px;
+}
+
+/* 主容器 */
+.custom-container {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+/* 第一模块：Logo 和欢迎语 */
+.custom-center {
+    text-align: center;
+}
+
+.custom-logo {
+    width: 230px;
+    height: 230px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    margin-top: 100px; /* 距离顶部边框 100px */
+}
+
+.custom-second {
+    font-size: 2rem; /* 主标题大小 */
+    font-weight: bold; /* 粗体文字 */
+    background: linear-gradient(to top, #f5d95b, #FFFFFF); /* 从金色到白色的渐变 */
+    -webkit-background-clip: text; /* 剪裁背景到文字 */
+    -webkit-text-fill-color: transparent; /* 填充文字颜色透明 */
+    text-align: center; /* 居中对齐 */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* 添加柔和的黑色阴影，提升立体感 */
+    margin-bottom: 10px; /* 底部间距 */
+}
+
+/* 磨砂背景 */
+.custom-second-container {
+    position: relative; /* 确保容器定位正确 */
+    display: inline-block; /* 背景尺寸与内容相匹配 */
+    background: rgba(255, 255, 255, 0.5); /* 半透明背景 */
+    backdrop-filter: blur(8px); /* 磨砂效果 */
+    border-radius: 10px; /* 圆角 */
+    padding: 10px 20px; /* 背景内容的内边距 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+    text-align: center;
+    margin-bottom: 20px; /* 与其他元素的间距 */
+}
+
+.custom-title {
+    font-size: 2rem; /* 主标题大小 */
+    font-weight: bold; /* 粗体文字 */
+    color: #ffffff; /* 设置文字颜色为白色 */
+    text-align: center; /* 居中对齐 */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3); /* 添加柔和的黑色阴影，提升可读性 */
+    margin-bottom: 10px; /* 底部间距 */
+}
+
+.custom-subtitle {
+    font-size: 1rem;
+    color: #b6d91a; /* 非纯白的柔和色 */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 内容描述容器 */
+.custom-description {
+    margin: 20px auto;
+    text-align: center;
+}
+
+/* 图片容器 */
+.custom-images {
+    display: flex;
+    justify-content: center; /* 水平居中对齐 */
+    gap: 20px; /* 图片之间的间距 */
+}
+
+/* 图片样式 */
+.description-img {
+    width: 100px; /* 缩小图片尺寸 */
+    height: auto; /* 保持宽高比 */
+    border-radius: 10px; /* 圆角效果 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 动画效果 */
+}
+
+.description-img:hover {
+    transform: scale(1.1); /* 鼠标悬停时放大 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* 增强阴影 */
+}
+
+/* 第二模块：选择按钮 */
+.card {
+    background: rgba(255, 255, 255, 0.5); /* 半透明白色背景 */
+    backdrop-filter: blur(10px); /* 磨砂效果 */
+    -webkit-backdrop-filter: blur(10px); /* 兼容 Safari 浏览器 */
+    border-radius: 12px; /* 圆角更柔和 */
+    padding: 25px; /* 增加内边距 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* 增强阴影效果 */
+}
+
+.custom-card-body {
+    margin-top: 30px; /* 向下移动，与上方容器拉开距离 */
+    margin-bottom: 50px; /* 与第三模块间距 50px */
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* 增大按钮间的间距 */
+    align-items: center; /* 内容居中对齐 */
+}
+
+/* 主按钮样式 */
+.custom-btn-primary {
+    display: block;
+    width: 85%; /* 更宽的按钮 */
+    margin: 0 auto;
+    padding: 15px; /* 增加按钮高度 */
+    font-size: 1.5rem; /* 字体稍大 */
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff; /* 白色字体 */
+    background: #008C8C; /* 纯青绿色背景 */
+    border: none;
+    border-radius: 10px; /* 圆角按钮 */
+    cursor: pointer;
+    transition: all 0.3s ease; /* 过渡效果 */
+    text-decoration: none; /* 取消按钮中文字下划线 */
+}
+
+/* 鼠标悬停效果 */
+.custom-btn-primary:hover {
+    background: #007777; /* 悬停时稍微加深颜色 */
+    transform: scale(1.05); /* 略微放大 */
+}
+
+/* 次按钮样式 */
+.custom-btn-secondary {
+    display: block;
+    width: 85%; /* 更宽的按钮 */
+    margin: 0 auto;
+    padding: 15px; /* 增加按钮高度 */
+    font-size: 1.5rem; /* 字体稍大 */
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff; /* 白色字体 */
+    background: #008C8C; /* 纯青绿色背景 */
+    border: none;
+    border-radius: 10px; /* 圆角按钮 */
+    cursor: pointer;
+    transition: all 0.3s ease; /* 过渡效果 */
+    text-decoration: none; /* 取消按钮中文字下划线 */
+}
+
+/* 鼠标悬停效果 */
+.custom-btn-secondary:hover {
+    background: #007777; /* 悬停时稍微加深颜色 */
+    transform: scale(1.05); /* 略微放大 */
+}
+
+/* 第三模块：页脚 */
+.custom-footer {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #008C8C; /* 柔和白色字体 */
+    margin-bottom: 50px; /* 与页面底边框的距离 50px */
+}
+
+.custom-footer a {
+    color: #008C8C; /* 文字颜色 */
+    text-decoration: underline; /* 始终显示下划线 */
+    transition: all 0.3s ease; /* 添加过渡效果 */
+}
+
+.custom-footer a:hover {
+    color: #005f5f; /* 鼠标悬停时改变颜色 */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* 添加阴影效果 */
+}
+
+
+.custom-copyright {
+    font-size: 0.8rem;
+    color: #008C8C; /* 柔和白色字体 */
+    text-align: center;
+    margin-bottom: 50px; /* 确保整体底部间距一致 */
+}
