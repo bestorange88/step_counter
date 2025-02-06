@@ -1,0 +1,76 @@
+/* 固定底部导航栏样式 */
+.fixed-footer {
+    display: flex;
+    justify-content: space-between; /* 保持左、中、右按钮位置 */
+    align-items: center;
+    padding: 20px 0;
+    background-color: #008C8C; /* 背景色 */
+    position: fixed;
+    height: 80px;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000; /* 确保 footer 的层级 */
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.2); /* 阴影效果 */
+    clip-path: path('M 0 0 H 35% A 40 40 0 0 1 65% 0 H 100% V 100% H 0 Z'); /* 半圆形凹陷效果 */
+    overflow: visible; /* 确保超出部分可见 */
+}
+
+/* 中间心形按钮 */
+.heart-button {
+    position: fixed; /* 确保按钮在视图中显示 */
+    top: calc(100% - 80px); /* 高出 footer 上边框自身直径的 50% */
+    left: 50%; /* 居中显示 */
+    transform: translate(-50%, 0); /* 水平居中 */
+    width: 84px; /* 按钮直径 */
+    height: 84px; /* 按钮直径 */
+    background-color: #008C8C; /* 按钮背景透明 */
+    border-radius: 50%; /* 按钮圆形 */
+    z-index: 1100; /* 确保高于 footer 的层级 */
+    overflow: visible;
+}
+
+.heart-button img {
+    width: 100%; /* 图标宽度占满按钮 */
+    height: 100%; /* 图标高度占满按钮 */
+    object-fit: contain; /* 保持图标比例并完整显示 */
+}
+
+/* 左侧按钮组调整 */
+.left-buttons {
+    display: flex;
+    justify-content: center; /* 按钮居中 */
+    align-items: center;
+    flex: 1; /* 左右按钮各占一半空间 */
+    margin-right: 50px;
+}
+
+.left-buttons,
+.right-buttons {
+    display: flex;
+    flex-direction: column; /* 图标和文字垂直排列 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    flex: 1; /* 左右按钮占等量空间 */
+    gap: 4px; /* 图标和文字之间的间距 */
+}
+
+.nav-icon {
+    width: 45px; /* 缩小图标尺寸，优化占用空间 */
+    height: 45px; /* 确保图标为正方形 */
+    object-fit: contain; /* 图标完整显示 */
+    margin: 0; /* 删除不必要的 margin */
+}
+
+.text-sm {
+    font-size: 14px; /* 缩小文字尺寸 */
+    line-height: 1.2; /* 优化文字行高 */
+    color: #ffffff; /* 白色文字 */
+    font-weight: bold; /* 加粗 */
+    text-align: center; /* 文本居中对齐 */
+    margin: 0; /* 删除多余间距 */
+}
+
+.flex:hover .text-sm {
+    color: #38A967; /* 悬停时文字变绿色 */
+    transition: color 0.2s ease-in-out; /* 增加平滑过渡效果 */
+}

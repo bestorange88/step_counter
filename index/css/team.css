@@ -1,0 +1,591 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* 确保 body 是滚动容器 */
+    height: 100%; /* 确保布局高度一致 */
+    box-sizing: border-box; /* 确保 padding 不影响布局 */
+}
+
+/* 页面整体样式 */
+.page-container {
+    margin-top: 60px; /* 留出 header 的高度 */
+    margin-bottom: 70px; /* 留出 footer 的高度 */
+    padding: 0 10px;
+    max-width: 1400px;
+    background-color: #F2F8E6;
+    overflow: auto; /* 确保内容可滚动 */
+    box-sizing: border-box;
+}
+
+/* 模块通用样式 */
+.module {
+    background: #fff; /* 模块背景 */
+    border-radius: 12px; /* 圆角，提升视觉层次感 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+    padding: 16px; /* 内边距 */
+    margin-bottom: 16px; /* 模块间距 */
+}
+
+/* 模块标题样式 */
+.module-title {
+    font-size: 18px; /* 标题字体大小 */
+    font-weight: bold; /* 字体加粗 */
+    color: #333; /* 深色标题 */
+    margin-bottom: 12px; /* 标题下方间距 */
+    text-align: left; /* 左对齐 */
+}
+
+/* 排行榜容器样式 */
+.ranking-container {
+    background: url('/static/index/img/paihang.png') no-repeat center center; /* 背景图 */
+    background-size: cover; /* 拉伸背景图 */
+    padding: 20px; /* 内边距 */
+    border-radius: 12px; /* 圆角 */
+    color: #fff; /* 白色字体 */
+    position: relative;
+    min-height: 300px; /* 设置最小高度，确保内容不被裁剪 */
+    margin-bottom: 10px; /* 与下方模块间距 */
+    overflow: hidden; /* 防止内容超出 */
+}
+
+/* 排行榜标题 */
+.ranking-header h2 {
+    font-size: 24px; /* 字体大小 */
+    font-weight: bold; /* 加粗 */
+    margin-bottom: 20px; /* 标题与内容间距 */
+    text-align: center; /* 居中标题 */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5); /* 增加标题阴影，提升视觉效果 */
+}
+
+/* 排行榜内容区域 */
+.ranking-body {
+    display: flex;
+    align-items: flex-end; /* 颁奖台效果 */
+    justify-content: space-around; /* 水平均匀分布 */
+    gap: 16px; /* 每项间距 */
+    margin-top: 30px; /* 下移排行榜内容 */
+}
+
+/* 每个排名的样式 */
+.ranking-item {
+    position: relative;
+    text-align: center;
+    flex: 1; /* 自动调整宽度 */
+    max-width: 120px; /* 限制单个排名项的宽度，避免超出 */
+    padding: 10px; /* 内边距，防止内容过于紧凑 */
+}
+
+/* 第一名 */
+.ranking-item.first {
+    transform: translateY(-30px); /* 提升高度 */
+    flex: 1.2; /* 第一名更宽 */
+}
+
+/* 第二名 */
+.ranking-item.second {
+    transform: translateY(-10px); /* 略低 */
+    flex: 1;
+}
+
+/* 第三名 */
+.ranking-item.third {
+    transform: translateY(0); /* 标准位置 */
+    flex: 1;
+}
+
+/* 皇冠样式 */
+.crown {
+    position: absolute;
+    top: -40px; /* 确保皇冠在头像上方 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px; /* 皇冠大小 */
+    height: 40px;
+    z-index: 2; /* 确保皇冠显示在顶部 */
+}
+
+/* 头像样式 */
+.avatar {
+    width: 80px; /* 头像大小 */
+    height: 80px;
+    border-radius: 50%; /* 圆形头像 */
+    border: 3px solid #fff; /* 白色边框 */
+    margin-bottom: 10px;
+    z-index: 1;
+}
+
+/* 排名信息 */
+.ranking-info {
+    font-size: 14px;
+    text-align: center;
+    word-wrap: break-word; /* 确保长文字换行 */
+}
+
+/* 名称样式 */
+.ranking-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #ffffff; /* 白色字体 */
+}
+
+/* 分数样式 */
+.ranking-score {
+    font-size: 14px;
+    color: #ccffcc; /* 淡绿色 */
+}
+
+/* 抽奖轮播模块 */
+#carousel {
+    position: relative; /* 设置为相对定位以支持绝对定位的子元素 */
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 10px;
+    margin-bottom: 0px;
+    overflow: hidden; /* 隐藏超出内容 */
+    height: 140px; /* 固定高度，适配卡片 */
+}
+
+/* 轮播卡片的基本样式 */
+#carousel .carousel-item {
+    position: absolute; /* 绝对定位，使卡片重叠 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* 添加透明度和位移过渡 */
+    opacity: 0; /* 默认隐藏 */
+    z-index: 0; /* 默认层级 */
+}
+
+/* 当前可见卡片 */
+#carousel .carousel-item.active {
+    opacity: 1; /* 可见状态 */
+    z-index: 1; /* 提升层级 */
+    transform: scale(1); /* 恢复正常大小 */
+}
+
+/* 下一张和上一张卡片 */
+#carousel .carousel-item.previous,
+#carousel .carousel-item.next {
+    opacity: 0; /* 隐藏 */
+    z-index: 0; /* 层级较低 */
+    transform: scale(0.95); /* 略缩小以体现层次感 */
+}
+
+/* 悬停效果 */
+#carousel .carousel-item:hover {
+    transform: scale(1.05); /* 放大效果 */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 抽奖内容标题样式 */
+#carousel h3 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+/* 描述文字样式 */
+#carousel p {
+    font-size: 14px;
+    color: #e0e0e0;
+    margin-bottom: 0;
+}
+
+.team-stats {
+    display: flex; /* 使用 Flexbox 布局 */
+    justify-content: space-between; /* 子元素在容器内左右分布 */
+    align-items: center; /* 子元素垂直居中 */
+    gap: 16px; /* 子元素之间的间距 */
+    margin: 10px 0; /* 上下外边距 */
+    padding: 0 16px; /* 左右内边距 */
+}
+
+.team-card {
+    position: relative; /* 为定位单位设置基础 */
+    background: #ffffff; /* 背景颜色 */
+    border-radius: 12px; /* 圆角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
+    padding: 16px; /* 内边距 */
+    flex: 1; /* 每个卡片均分宽度 */
+    text-align: center; /* 文本居中 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 动态效果 */
+}
+
+.card-unit {
+    position: absolute; /* 绝对定位 */
+    top: 16px; /* 与数字顶部齐平 */
+    right: 16px; /* 贴近模块右侧 */
+    font-size: 14px; /* 单位字体大小 */
+    font-weight: bold; /* 加粗字体 */
+    color: inherit; /* 使用不同模块定义的颜色 */
+}
+
+.card-unit.text-green {
+    color: #4CAF50; /* 绿色字体 */
+}
+
+.card-unit.text-red {
+    color: #9C27B0; /* 红色字体 */
+}
+
+.card-number {
+    font-size: 40px; /* 数字字体大小 */
+    font-weight: bold; /* 加粗字体 */
+    margin: 8px 0; /* 数字与其他元素间距 */
+    color: #008C8C; /* 默认颜色 */
+}
+
+.card-description {
+    font-size: 14px; /* 注释文字字体大小 */
+    color: #777; /* 注释文字颜色 */
+    margin-top: 8px; /* 数字与注释之间的间距 */
+}
+
+/* 操作按钮样式 */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* 按钮之间的间距 */
+    margin-bottom: 10px;
+}
+.action-buttons .btn {
+    background-color: #008C8C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px; /* 调整内边距 */
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap; /* 不换行 */
+    overflow: hidden; /* 隐藏溢出 */
+    text-overflow: ellipsis; /* 文本溢出省略号 */
+    font-size: 10px; /* 缩小文字大小 */
+}
+.action-buttons .btn:hover {
+    background-color: #007777;
+    box-shadow: 0 4px 8px rgba(0, 123, 123, 0.2);
+}
+.action-buttons .btn + .btn {
+    margin-left: 6px;
+}
+
+/* 搜索和表格模块样式 */
+.member-search {
+    margin-top: 10px; /* 顶部间距 */
+    padding: 16px; /* 内边距 */
+    background-color: #f9f9f9; /* 浅灰背景 */
+    border-radius: 12px; /* 圆角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+}
+
+/* 搜索框样式 */
+.input-group {
+    display: flex; /* 水平排列 */
+    align-items: center; /* 垂直居中 */
+    gap: 10px; /* 间距 */
+}
+
+.input-group input {
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 圆角 */
+    padding: 10px;
+    flex: 1 0 200px; /* 占据剩余空间并设置最小宽度 */
+    text-align: left; /* 输入框文字左对齐 */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* 动态效果 */
+}
+
+.input-group input:focus {
+    border-color: #008C8C; /* 聚焦时边框颜色 */
+    box-shadow: 0 0 6px rgba(0, 140, 140, 0.4); /* 聚焦阴影 */
+}
+
+/* 搜索按钮样式 */
+.input-group .btn-search {
+    background-color: #008C8C; /* 按钮背景 */
+    border: none; /* 移除默认边框 */
+    border-radius: 8px; /* 圆角 */
+    width: 45px; /* 按钮大小 */
+    height: 45px;
+    display: flex; /* 使内容水平垂直居中 */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer; /* 鼠标样式 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* 动态效果 */
+}
+
+.input-group .btn-search:hover {
+    background-color: #007777; /* 鼠标悬停时背景色 */
+    box-shadow: 0 4px 8px rgba(0, 123, 123, 0.2); /* 添加阴影 */
+}
+
+/* 搜索按钮图标 */
+.input-group .btn-search img {
+    width: 20px; /* 图标大小 */
+    height: 20px;
+    object-fit: contain; /* 保持图标比例 */
+}
+
+/* 成员表格样式 */
+.member-table {
+    margin-top: 20px; /* 表格顶部间距 */
+    overflow-x: auto; /* 横向滚动支持 */
+    border-radius: 12px; /* 圆角 */
+    background-color: #F2F8E6; /* 浅绿色背景 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate; /* 分隔线样式 */
+    border-spacing: 0; /* 移除单元格间距 */
+}
+
+.table th {
+    background-color: #F2F8E6; /* 浅绿色背景 */
+    color: #008C8C; /* 字体颜色 */
+    font-weight: bold; /* 加粗字体 */
+    padding: 12px;
+    text-align: center; /* 居中对齐 */
+    border-bottom: 2px solid #ddd; /* 下边框 */
+}
+
+.table td {
+    padding: 12px;
+    text-align: center; /* 居中对齐 */
+    border-bottom: 1px solid #ddd; /* 下边框 */
+    font-size: 14px; /* 字体大小 */
+    color: #555; /* 文本颜色 */
+}
+
+.table tbody tr:hover {
+    background-color: #f9f9f9; /* 悬停背景色 */
+}
+
+.avatar-img {
+    width: 40px; /* 头像大小 */
+    height: 40px;
+    border-radius: 50%; /* 圆形头像 */
+    object-fit: cover; /* 保持比例 */
+    border: 1px solid #ddd; /* 边框颜色 */
+}
+
+/* 分页按钮样式 */
+.card-footer.card-more {
+    background-color: #F2F8E6; /* 浅绿色背景 */
+    padding: 12px;
+    color: #008C8C; /* 字体颜色 */
+    font-weight: bold; /* 加粗 */
+    text-align: center;
+    cursor: pointer; /* 鼠标样式 */
+    transition: background-color 0.3s ease; /* 动态效果 */
+}
+
+.card-footer.card-more:hover {
+    background-color: #e0f7fa; /* 悬停背景色 */
+}
+
+/* 不同会员类型颜色 */
+.input-group-prepend select option[value="all"] {
+    color: #008C8C; /* 颜色 */
+}
+
+.input-group-prepend select option[value="unauthenticated"] {
+    color: #808080; /* 灰色 */
+}
+
+.input-group-prepend select option[value="member-lv1"] {
+    color: #A8E6CF; /* 浅绿色 */
+}
+
+.input-group-prepend select option[value="member-lv2"] {
+    color: #81C784; /* 稍深的绿色 */
+}
+
+.input-group-prepend select option[value="member-lv3"] {
+    color: #4CAF50; /* 中绿色 */
+}
+
+.input-group-prepend select option[value="member-lv4"] {
+    color: #2E7D32; /* 深绿色 */
+}
+
+/* Modal Background */
+.modal {
+    display: none; /* 默认隐藏 */
+    position: fixed; /* 固定定位 */
+    z-index: 1000; /* 高层级 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 允许滚动 */
+    background-color: rgba(0, 0, 0, 0.4); /* 背景黑色透明 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe; /* 背景白色 */
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 12px; /* 圆角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
+    position: relative;
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer; /* 鼠标样式 */
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #000; /* 悬停时颜色变黑 */
+    text-decoration: none;
+}
+
+/* Form Styles */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content form label {
+    margin-top: 10px;
+    color: #333; /* 深色字体 */
+}
+
+.modal-content form input,
+.modal-content form textarea {
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 圆角 */
+    padding: 10px;
+    margin-top: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content form input:focus,
+.modal-content form textarea:focus {
+    border-color: #008C8C; /* 聚焦时边框颜色 */
+    box-shadow: 0 0 6px rgba(0, 140, 140, 0.4); /* 聚焦阴影 */
+}
+
+.modal-content form button {
+    background-color: #008C8C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 15px;
+}
+
+.modal-content form button:hover {
+    background-color: #007777;
+    box-shadow: 0 4px 8px rgba(0, 123, 123, 0.2);
+}
+/* Modal Background */
+.modal {
+    display: none; /* 默认隐藏 */
+    position: fixed; /* 固定定位 */
+    z-index: 1000; /* 高层级 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* 允许滚动 */
+    background-color: rgba(0, 0, 0, 0.4); /* 背景黑色透明 */
+    justify-content: center; /* 水平居中 */
+    align-items: center; /* 垂直居中 */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe; /* 背景白色 */
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 12px; /* 圆角 */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 阴影 */
+    position: relative;
+}
+
+/* Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer; /* 鼠标样式 */
+    transition: color 0.3s ease;
+}
+
+.close:hover,
+.close:focus {
+    color: #000; /* 悬停时颜色变黑 */
+    text-decoration: none;
+}
+
+/* Form Styles */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content form label {
+    margin-top: 10px;
+    color: #333; /* 深色字体 */
+}
+
+.modal-content form input,
+.modal-content form textarea {
+    border: 1px solid #ddd;
+    border-radius: 8px; /* 圆角 */
+    padding: 10px;
+    margin-top: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content form input:focus,
+.modal-content form textarea:focus {
+    border-color: #008C8C; /* 聚焦时边框颜色 */
+    box-shadow: 0 0 6px rgba(0, 140, 140, 0.4); /* 聚焦阴影 */
+}
+
+.modal-content form button {
+    background-color: #008C8C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 15px;
+}
+
+.modal-content form button:hover {
+    background-color: #007777;
+    box-shadow: 0 4px 8px rgba(0, 123, 123, 0.2);
+}

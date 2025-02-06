@@ -1,0 +1,170 @@
+/* Header 样式 */
+.header {
+    height: 60px;
+    background-color: #008C8C;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    overflow: visible; /* 确保子元素不会被切断 */
+    white-space: nowrap;
+}
+
+/* 返回按钮样式 */
+.btn-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    flex-shrink: 0;
+    margin-left: 10px; /* 设置返回按钮与左边框的距离 */
+}
+
+/* 返回按钮图标 */
+.icon-back {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 页面标题 */
+.page-title {
+    font-size: 1.7rem; /* 字体增大2号 */
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    line-height: 60px;
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* 在父容器居中显示 */
+}
+
+/* 工具栏容器 */
+.header-tools {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 设置工具栏内部元素之间的间距 */
+}
+
+/* 按钮样式 */
+.btn-message,
+.btn-settings,
+.btn-user-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+/* 图标样式 */
+.icon-message,
+.icon-settings,
+.icon-user-menu {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* 下拉菜单父容器 */
+.dropdown {
+    position: relative; /* 确保子元素正确定位 */
+    margin-right: 10px; /* 设置父容器与右侧边框的距离 */
+}
+
+/* 隐藏菜单 */
+.dropdown-menu {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 180px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+    z-index: 2000; /* 设置更高的z-index值 */
+    will-change: opacity, transform;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    padding: 8px 0;
+    font-size: 1.1rem; /* 增加字体大小 */
+}
+
+.dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    z-index: 2000; /* 设置更高的z-index值 */
+}
+
+/* 下拉菜单链接 */
+.dropdown-menu a {
+    color: #013220;
+    text-decoration: none;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu a:focus {
+    background-color: #f8f9fa;
+    color: #008C8C;
+    outline: none; /* 移除默认的聚焦边框 */
+}
+
+/* 下拉菜单分割线 */
+.dropdown-divider {
+    height: 1px;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    background-color: #008C8C;
+}
+
+/* 响应式支持 */
+@media (max-width: 640px) {
+    .page-title {
+        font-size: 1.2rem; /* 字体增大2号 */
+    }
+
+    .header-tools {
+        gap: 10px; /* 设置工具栏内部元素之间的间距 */
+    }
+
+    .btn-back,
+    .btn-message,
+    .btn-settings,
+    .btn-user-menu {
+        width: 32px;
+        height: 32px;
+    }
+
+    .dropdown-menu {
+        min-width: 100px;
+    }
+
+    .dropdown-menu a {
+        padding: 6px 8px;
+        font-size: 0.85rem;
+    }
+}

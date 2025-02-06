@@ -1,0 +1,227 @@
+/* 整体页面样式 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f8ff; /* 浅蓝背景 */
+}
+
+/* 隐藏的调试部分 */
+.hidden-section {
+    display: none;
+}
+
+/* 日期与天气容器样式 */
+.date-weather {
+    display: flex; /* 使用Flexbox布局 */
+    justify-content: space-between; /* 左右对齐 */
+    margin-bottom: 16px; /* 与下方内容的间距 */
+}
+
+/* 日期样式 */
+.date-weather .date {
+    font-size: 1.125rem; /* 字体大小 */
+    font-weight: bold; /* 加粗 */
+    color: #008C8C; /* 绿色字体 */
+    margin: 0; /* 移除多余外边距 */
+}
+
+/* 天气样式 */
+.date-weather .weather {
+    font-size: 1.125rem; /* 字体大小 */
+    font-weight: bold; /* 加粗 */
+    color: #FF5722; /* 橙色字体 */
+    margin: 0; /* 移除多余外边距 */
+}
+
+/* 步数圆环样式 */
+.relative {
+    position: relative;
+}
+
+.w-48,
+.h-48 {
+    width: 12rem;
+    height: 12rem;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.text-custom {
+    color: #00A896;
+}
+
+/* 圆环样式 */
+svg {
+    width: 100%;
+    height: 100%;
+}
+
+circle {
+    fill: none;
+    stroke-width: 12;
+}
+
+#progress-circle {
+    stroke-dasharray: 565.2;
+    stroke-dashoffset: 565.2;
+    transition: stroke-dashoffset 0.3s ease-in-out;
+}
+/* 数据统计样式 */
+.grid {
+    display: grid;
+    gap: 16px;
+}
+
+.grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-[#008C8C],
+.text-[#008C8C],
+.text-[#008C8C] {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.text-custom.font-medium {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* 今日步数与步行距离模块 */
+.grid-cols-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.shadow-md {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-lg {
+    border-radius: 8px;
+}
+
+.p-4 {
+    padding: 16px;
+}
+
+.mb-4 {
+    margin-bottom: 16px;
+}
+
+.text-purple-500 {
+    color: #008C8C;
+}
+
+.text-blue-500 {
+    color: #2196F3;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+/* 条形统计图样式 */
+.flex.items-end {
+    display: flex;
+    align-items: flex-end;
+}
+
+.space-x-2 > * {
+    margin-right: 8px;
+}
+
+.h-8,
+.h-12,
+.h-16,
+.h-20 {
+    border-radius: 4px;
+}
+
+.w-2 {
+    width: 0.5rem;
+}
+
+.bg-purple-300,
+.bg-purple-400,
+.bg-blue-300,
+.bg-blue-400 {
+    background-color: #D1C4E9;
+}
+
+/* 奖励模块 */
+.space-y-3 > * {
+    margin-bottom: 12px;
+}
+
+.p-3 {
+    padding: 12px;
+}
+
+.bg-[#E8F5E9],
+.bg-[#FFF3E0],
+.bg-[#E3F2FD] {
+    border-radius: 8px;
+}
+
+.reward-button {
+    transition: background-color 0.3s ease;
+}
+
+.bg-[#4CAF50]:hover,
+.bg-[#FF9800]:hover,
+.bg-[#2196F3]:hover {
+    background-color: #388E3C;
+}
+
+/* 健康资讯模块 */
+.mt-4 {
+    margin-top: 16px;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+.text-gray-800 {
+    color: #1A202C;
+}
+
+.divide-y > * + * {
+    border-top: 1px solid #E2E8F0;
+}
+
+.space-x-4 > * {
+    margin-right: 16px;
+}
+
+.w-16,
+.h-16 {
+    width: 4rem;
+    height: 4rem;
+}
+
+.object-cover {
+    object-fit: cover;
+}
+
+.text-sm {
+    font-size: 0.875rem;
+}
